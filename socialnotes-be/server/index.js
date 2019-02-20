@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const app = express();
-
+const mysql = require('mysql');
 // Import the routes folder, which has our different routes in it
 const routes = require('./routes');
 
@@ -17,8 +17,25 @@ app.use('/', routes()); //this uses the routes folder
 app.use(express.static('.'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
-
 app.use(express.static("."));
+
+//DB things
+let con = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Mario275!',
+    database: 'socialnotes'
+});
+con.connect(function(err) {
+    if (err) {
+        console.log("Error connecting to database");
+    }
+    else {
+        console.log("Database successfully connected");
+    }
+});
+
+
 
 // Listen for requests on port 8080
 app.listen(8080,function(){
