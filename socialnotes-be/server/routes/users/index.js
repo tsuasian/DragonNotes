@@ -8,7 +8,7 @@ module.exports = () => {
 
     router.get('/', (req, resp, next) => {
 
-        con.query('SELECT * from Users',
+        connection.query('SELECT * from Users',
             function(err,rows,fields) {
                 if (err)
                     console.log('Error during query processing');

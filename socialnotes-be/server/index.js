@@ -20,13 +20,13 @@ app.use(bodyparser.json());
 app.use(express.static("."));
 
 //DB things
-let con = mysql.createConnection({
+let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Mario275!',
     database: 'socialnotes'
 });
-con.connect(function(err) {
+connection.connect(function(err) {
     if (err) {
         console.log("Error connecting to database");
     }
@@ -45,4 +45,5 @@ app.listen(8080,function(){
 });
 
 module.export = app;
+module.export = connection;
 
