@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const con =
+const connection = require('../../index.js').connection;
 
 module.exports = () => {
 
