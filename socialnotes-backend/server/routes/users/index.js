@@ -8,7 +8,7 @@ module.exports = () => {
 
     router.get('/', (req, resp, next) => {
 
-        db.getUsersByFirstName("Tim", function (err, results) {
+        db.getUsersByLastName("Pena", function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
             resp.send(results);
         });

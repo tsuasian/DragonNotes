@@ -21,7 +21,6 @@ app.use('/', routes()); //this uses the routes folder
 app.use(express.static('.'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
-app.use(express.static("."));
 
 // Listen for requests
 app.listen(port,function(){

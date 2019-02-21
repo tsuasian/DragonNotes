@@ -1,10 +1,6 @@
 const mysql = require('mysql');
 
-//Better:
-// host: process.env.MYSQL_HOST,
-//     user: process.env.MYSQL_USER,
-//     password: process.env.MYSQL_PASS,
-//     database: process.env.MYSQL_DB,
+//Better would be ~ password: process.env.MYSQL_PASS etc
 let pool = mysql.createPool({
     host: '167.99.83.201',
     port: '3306',
@@ -15,7 +11,7 @@ let pool = mysql.createPool({
     supportBigNumbers: true
 });
 
-// Example function
+// Example functions
 exports.getUsersByFirstName = function(firstName, callback) {
     const sql = "SELECT * FROM Users WHERE firstName=?";
     // get a connection from the pool
@@ -23,6 +19,20 @@ exports.getUsersByFirstName = function(firstName, callback) {
         if(err) { console.log(err); callback(true); return; }
         // make the query
         connection.query(sql, [firstName], function(err, results) {
+            connection.release();
+            if(err) { console.log(err); callback(true); return; }
+            callback(false, results);
+        });
+    });
+};
+
+exports.getUsersByLastName = function(lastName, callback) {
+    const sql = "SELECT * FROM Users WHERE lastName=?";
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err) { console.log(err); callback(true); return; }
+        // make the query
+        connection.query(sql, [lastName], function(err, results) {
             connection.release();
             if(err) { console.log(err); callback(true); return; }
             callback(false, results);
