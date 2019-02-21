@@ -4,10 +4,11 @@
   "description": "",
   "main": "server/index.js",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.16.4",
     "node-bodyparser": "^0.1.0",
-    "request": "^2.88.0",
-    "body-parser": "latest"
+    "path": "^0.12.7",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {

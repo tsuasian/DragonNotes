@@ -1,23 +1,31 @@
-'use strict';
-
-const express = require('express');
 const mysql = require('mysql');
 
-let connection = mysql.createConnection({
+//Better:
+// host: process.env.MYSQL_HOST,
+//     user: process.env.MYSQL_USER,
+//     password: process.env.MYSQL_PASS,
+//     database: process.env.MYSQL_DB,
+let pool = mysql.createPool({
     host: '167.99.83.201',
     port: '3306',
     user: 'socialnotes',
     password: 'Mario275!',
-    database: 'socialnotes'
-});
-connection.connect(function(err) {
-    if (err) {
-        console.log("Error connecting to database");
-        console.log(err);
-    }
-    else {
-        console.log("Database successfully connected");
-    }
+    database: 'socialnotes',
+    connectionLimit: 10,
+    supportBigNumbers: true
 });
 
-module.export = connection;
+// Example function
+exports.getUsersByFirstName = function(firstName, callback) {
+    const sql = "SELECT * FROM Users WHERE firstName=?";
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err) { console.log(err); callback(true); return; }
+        // make the query
+        connection.query(sql, [firstName], function(err, results) {
+            connection.release();
+            if(err) { console.log(err); callback(true); return; }
+            callback(false, results);
+        });
+    });
+};

@@ -2,22 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
-const connection = require('../../index.js').connection;
+const db = require("../../db.js");
 
 module.exports = () => {
 
     router.get('/', (req, resp, next) => {
 
-        connection.query('SELECT * from Users',
-            function(err,rows,fields) {
-                if (err)
-                    console.log('Error during query processing');
-                else
-                    console.log('Here is the result : ', rows);
-// See next slide for an alternate way to parse
-//and display the result
-            });
-        return resp.send(`I guessing this is the route where you type notes?`);
+        db.getUsersByFirstName("Tim", function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
     });
 
     router.get('/:userName', (req, resp, next) => {
