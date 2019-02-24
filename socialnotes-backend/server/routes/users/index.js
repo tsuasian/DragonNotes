@@ -15,7 +15,7 @@ module.exports = () => {
         });
     });
 
-    router.get('/:userName', (req, resp, next) => {
+    router.get('/:userName', cors(), (req, resp, next) => {
         return resp.send(`This is the profile page for ${req.params.userName}`);
     });
 
