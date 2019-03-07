@@ -4,7 +4,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const app = express();
 const port = 8080;
-
+const cors = require('cors');
 // var path = require('path');
 // var updater = require( path.resolve( __dirname, "./db.js" ) );
 
@@ -33,4 +33,3 @@ app.listen(port,function(){
 //     app: app
 // };
 module.export = app;
-

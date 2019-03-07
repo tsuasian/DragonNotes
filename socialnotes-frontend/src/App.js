@@ -1,54 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios'
+import React, {Component} from 'react'
+import Login from './components/login/login.js'
+import Register from './components/login/register.js'
+import {AppBar,Button,Toolbar,Table,TableBody,Slide,Tooltip,CircularProgress,CssBaseline,Paper,Typography,IconButton,TextField,MuiThemeProvider} from '@material-ui/core';
 
-class App extends Component {
+
+export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      user: ""
+      logedIn: true
     }
-  }
-
-  // componentDidMount() {
-  //
-  // }
-
-  onClick() {
-    axios.get("http://localhost:8080")
-    .then((data) => {
-      console.log(data)
-      var first = data.data[0].firstName
-      var last = data.data[0].lastName
-      var name = first + " " + last
-      this.setState({
-        user: name
-      })
-      console.log("state", this.state)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-      <div className="grandma">
-        <div className="user-input">
-          <button id="click" onClick={() => this.onClick()}>Get test</button>
-        </div>
-        <div className="output">
-          User: {this.state.user}
-        </div>
-      </div>
-      </div>
-    );
+      this.state.logedIn ?
+      <Login />
+      : <Register />
+    )
   }
 }
-
-export default App;
