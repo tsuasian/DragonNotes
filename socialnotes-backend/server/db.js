@@ -3,9 +3,9 @@ const mysql = require('mysql');
 
 //Better would be ~ password: process.env.MYSQL_PASS etc
 let pool = mysql.createPool({
-    host: '167.99.83.201',
+    host: '104.248.211.187',
     port: '3306',
-    user: 'socialnotes',
+    user: 'social',
     password: 'Mario275!',
     database: 'socialnotes',
     connectionLimit: 10,
