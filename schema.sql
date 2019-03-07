@@ -15,6 +15,7 @@ primary key (userId)
 INSERT INTO Users VALUES (1,'14E4F66C63DEC110B448E011DCB0B57F70EC20C6', 'Tim', 'Chang', 'tsuasian', 'Tchang2017@gmail.com');
 INSERT INTO Users VALUES (2, '70846DDC6D46C1D278CBE179D44836E13411D5C0', 'Dan', 'Pena', 'theBetterDaniel', 'daniel.r.pena25@gmail.com');
 INSERT INTO Users VALUES (3, '21232FE000ED42CE8BCE3EE1E22F7A22AF3CA198', 'Dan', 'Kennedy', 'danK', 'dannykennedy@email.com');
+INSERT INTO Users VALUES (4, '21232FE000ED42CE8BCE3EE1E22F7A22AF3CA198', 'Dan', 'Kennedy', 'danAtDrexel', 'dk879@drexel.edu');
 
 DROP TABLE IF EXISTS Sessions;
 CREATE TABLE Sessions (

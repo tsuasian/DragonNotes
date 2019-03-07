@@ -9,7 +9,7 @@ module.exports = () => {
 
     router.get('/', cors(), (req, resp, next) => {
 
-        dbUserFunctions.getUsersByLastName("Chang", function (err, results) {
+        dbUserFunctions.getUsersByLastName("Kennedy", function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
             resp.send(results);
         });
