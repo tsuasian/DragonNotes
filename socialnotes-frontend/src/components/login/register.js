@@ -44,6 +44,7 @@ class Register extends Component {
     })
     .then((data) => {
       console.log(data)
+      this.props.status(true)
     })
   }
 

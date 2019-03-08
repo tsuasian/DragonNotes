@@ -12,11 +12,23 @@ export default class App extends Component {
     }
   }
 
+  loggedIn = (status) => {
+    if (status == true) {
+      this.setState({
+        logedIn: true
+      })
+    } else {
+      this.setState({
+        logedIn: false
+      })
+    }
+  }
+
   render() {
     return (
       this.state.logedIn ?
       <Login />
-      : <Register />
+      : <Register status={this.loggedIn}/>
     )
   }
 }
