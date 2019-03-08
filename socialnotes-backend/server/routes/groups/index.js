@@ -24,7 +24,7 @@ module.exports = () => {
     });
 
     // Create a new group
-    // Body of requests should look like this:
+    // Body of request should look like this:
     // {
     //     "groupId": "161420ed-a009-44b6-95e6-11177ddc946e"
     // }
@@ -33,6 +33,23 @@ module.exports = () => {
         let groupId = post.groupId;
 
         dbGroupFunctions.createGroup(groupId, function (err, results) {
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
+        });
+    });
+
+    // Add user to group
+    // Body of request should look like this:
+    // {
+    //     "groupId": "161420ed-a009-44b6-95e6-11177ddc946e",
+    //     "userId": 1
+    // }
+    router.post('/user', cors(), (req, res, next) => {
+        let post = req.body;
+        let groupId = post.groupId;
+        let userId = post.userId;
+
+        dbGroupFunctions.addUserToGroup(userId, groupId, function (err, results) {
             if(err) { res.send(500,"Server Error"); return;}
             res.send(results);
         });
