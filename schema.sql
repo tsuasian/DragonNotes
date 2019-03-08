@@ -32,9 +32,11 @@ noteId varchar(36),
 entryText TEXT,
 postedBy int(10) references Users(id),
 timePosted DATETIME,
-timeModified DATETIME,
+timeModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 primary key (noteId)
 );
+
+--ALTER TABLE `Notes` CHANGE COLUMN `timeModified` `timeModified` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
 
 INSERT INTO Notes VALUES ('633fa848-bb51-4a81-903a-8b531a4847ce', 'My name is Tim', 1, '2019-02-23 14:11:09', '2019-02-23 14:11:09');
 INSERT INTO Notes VALUES ('6dccd43f-856e-452d-b508-e43b199fb931', 'My name is DanP', 2, '2019-02-23 14:11:09', '2019-02-23 14:11:09');

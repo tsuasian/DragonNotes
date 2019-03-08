@@ -11,6 +11,7 @@ module.exports = () => {
 
     router.use(cors());
 
+    // Get all notes by a given user. E.g. GET http://localhost:8080/notes/3
     router.get('/:userId', (req, resp, next) => {
 
         const id = req.params.userId;
@@ -33,6 +34,22 @@ module.exports = () => {
         let postText = post.postText;
         let userId = post.userId;
         dbNoteFunctions.addNote(userId, postText, function (err, results) {
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
+        });
+    });
+
+    // Edit a new note.
+    // Body of requests should look like this:
+    // {
+    //     "postText": "dis is mah new note",
+    //     "noteId": "30799eee-4b98-4f2f-9f21-eb9e4464001f"
+    // }
+    router.patch('/', cors(), (req, res, next) => {
+        let patch = req.body;
+        let newText = patch.postText;
+        let noteId = patch.noteId;
+        dbNoteFunctions.editNote(noteId, newText, function (err, results) {
             if(err) { res.send(500,"Server Error"); return;}
             res.send(results);
         });
