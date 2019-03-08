@@ -55,5 +55,22 @@ module.exports = () => {
         });
     });
 
+    // Change name of group
+    // Body of request should look like this:
+    // {
+    //     "groupId": "161420ed-a009-44b6-95e6-11177ddc946e",
+    //     "groupName": "CS275"
+    // }
+    router.patch('/', cors(), (req, res, next) => {
+        let update = req.body;
+        let groupName = update.groupName;
+        let groupId = update.groupId;
+
+        dbGroupFunctions.modifyGroupName(groupName, groupId, function (err, results) {
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
+        });
+    });
+
     return router;
 };

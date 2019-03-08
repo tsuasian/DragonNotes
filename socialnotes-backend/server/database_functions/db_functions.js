@@ -2,7 +2,7 @@
 
 const db = require('../db.js');
 
-exports.modifyDataWithSqlQuery = (sql, callback) => {
+exports.makeSqlQuery = (sql, callback) => {
     // get a connection from the pool
     db.getConnection(function(err, connection) {
         //callback if server error
