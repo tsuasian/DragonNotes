@@ -32,7 +32,7 @@ class Register extends Component {
       [field]: e.target.value
     })
   }
-
+  //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
   onRegister = () => {
     console.log("state", this.state)
     axios.post("http://localhost:8080/registerUser", {
@@ -46,6 +46,7 @@ class Register extends Component {
       console.log(data)
       this.props.status(true)
     })
+    .catch((err) => console.log(err))
   }
 
   render() {
