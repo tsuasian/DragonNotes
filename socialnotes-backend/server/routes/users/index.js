@@ -7,16 +7,15 @@ const cors = require('cors');
 
 module.exports = () => {
 
-    router.get('/', cors(), (req, resp, next) => {
-
+    router.get('/', cors(), (req, res, next) => {
         dbUserFunctions.getUsersByLastName("Kennedy", function (err, results) {
-            if(err) { resp.send(500,"Server Error"); return;}
-            resp.send(results);
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
         });
     });
 
-    router.get('/:userName', cors(), (req, resp, next) => {
-        return resp.send(`This is the profile page for ${req.params.userName}`);
+    router.get('/:userName', cors(), (req, res, next) => {
+        return res.send(`This is the profile page for ${req.params.userName}`);
     });
 
     return router;

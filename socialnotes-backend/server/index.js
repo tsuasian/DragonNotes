@@ -17,10 +17,10 @@ const routes = require('./routes');
 
 //Express middleware, gets the folder where our public assets are
 app.use(express.static('public')); //for static files
-app.use('/', routes()); //this uses the routes folder
 app.use(express.static('.'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
+app.use('/', routes()); //this uses the routes folder
 
 // Listen for requests
 app.listen(port,function(){
