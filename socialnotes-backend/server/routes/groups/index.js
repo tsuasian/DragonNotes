@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const dbNoteFunctions = require("../../database_functions/note_functions.js");
 
 module.exports = () => {
 
@@ -10,7 +11,12 @@ module.exports = () => {
     });
 
     router.get('/:groupId', (req, resp, next) => {
-        return resp.send(`I'm going to send you the details for groupId ${req.params.groupId}`);
+        const gid = req.params.groupId;
+
+        dbNoteFunctions.getNotesInGroup(gid, function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
     });
 
     return router;
