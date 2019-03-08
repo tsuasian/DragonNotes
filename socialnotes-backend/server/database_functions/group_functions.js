@@ -10,8 +10,8 @@ const dbFunctions = require("./db_functions.js");
 
 // Create a new group
 exports.createGroup = (groupId, callback) => {
-    const dateGroupCreated = new Date().toLocaleString();
-    const sql = `INSERT INTO Sharegroups (groupId, lastActive) VALUES ('${groupId}', '${dateGroupCreated}')`;
+    //lastActive will be auto-updated
+    const sql = `INSERT INTO Sharegroups (groupId) VALUES ('${groupId}')`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
