@@ -1,6 +1,13 @@
 'use strict';
 const dbFunctions = require("./db_functions.js");
 
+// CREATE TABLE Sharegroups (
+//     groupId varchar(36),
+//     groupName varchar(50),
+//     lastActive DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+//     primary key (groupId)
+// );
+
 // Create a new group
 exports.createGroup = (groupId, callback) => {
     const dateGroupCreated = new Date().toLocaleString();
