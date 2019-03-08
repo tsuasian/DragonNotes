@@ -44,12 +44,29 @@ module.exports = () => {
     //     "groupId": "161420ed-a009-44b6-95e6-11177ddc946e",
     //     "userId": 1
     // }
-    router.post('/user', cors(), (req, res, next) => {
+    router.post('/users', cors(), (req, res, next) => {
         let post = req.body;
         let groupId = post.groupId;
         let userId = post.userId;
 
         dbGroupFunctions.addUserToGroup(userId, groupId, function (err, results) {
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
+        });
+    });
+
+    // Post note to group
+    // Body of request should look like this:
+    // {
+    //     "groupId": "161420ed-a009-44b6-95e6-11177ddc946e",
+    //     "noteId": "30799eee-4b98-4f2f-9f21-eb9e4464001f"
+    // }
+    router.post('/notes', cors(), (req, res, next) => {
+        let shareRequest = req.body;
+        let groupId = shareRequest.groupId;
+        let noteId = shareRequest.noteId;
+
+        dbNoteFunctions.shareNoteInGroup(noteId, groupId, function (err, results) {
             if(err) { res.send(500,"Server Error"); return;}
             res.send(results);
         });
