@@ -1,6 +1,7 @@
 
 -- SOCIALNOTES DB SCHEMA
 
+--passwordHash is a SHA256 hash
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
 userId int(10) unsigned NOT NULL AUTO_INCREMENT,
