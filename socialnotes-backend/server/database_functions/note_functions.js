@@ -1,34 +1,45 @@
 'use strict';
-const db = require('../db.js');
 
-// Example functions
-exports.getNotesByUser = (userId, callback) => {
+const uuidv4 = require('uuid/v4');
+const dbFunctions = require("./db_functions.js");
 
-    const sql = "SELECT * FROM Notes WHERE postedBy=?";
-    // get a connection from the pool
-    db.getConnection(function(err, connection) {
-        if(err) { console.log(err); callback(true); return; }
-        // make the query
-        connection.query(sql, [userId], function(err, results) {
-            connection.release();
-            if(err) { console.log(err); callback(true); return; }
-            callback(false, results);
-        });
-    });
-};
+// CREATE TABLE Notes (
+//     noteId varchar(36),
+//     entryText TEXT,
+//     postedBy int(10) references Users(id),
+//     timePosted DATETIME,
+//     timeModified DATETIME,
+//     primary key (noteId)
+// );
 
+// Get all notes in a given group
 exports.getNotesInGroup = (groupId, callback) => {
 
     const sql = "select * from Notes join NotesGroups on Notes.noteId LIKE NotesGroups.noteId where NotesGroups.groupId LIKE \'" + groupId + "\'";
-
-    // get a connection from the pool
-    db.getConnection(function(err, connection) {
-        if(err) { console.log(err); callback(true); return; }
-        // make the query
-        connection.query(sql, function(err, results) {
-            connection.release();
-            if(err) { console.log(err); callback(true); return; }
-            callback(false, results);
-        });
-    });
+    dbFunctions.makeSqlQuery(sql, callback);
 };
+
+// Add a new note
+exports.addNote = (userId, noteText, callback) => {
+
+    const noteId = uuidv4();
+    const datetime = new Date().toLocaleString();
+    const sql = `INSERT INTO Notes VALUES ('${noteId}', '${noteText}', ${userId}, '${datetime}','${datetime}')`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+// Share note in group
+exports.shareNoteInGroup = (noteId, groupId, callback) => {
+
+    const timeShared = new Date().toLocaleString();
+    const sql = `INSERT INTO NotesGroups VALUES ('${noteId}', '${groupId}', '${timeShared}');`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+// Edit a note
+exports.editNote = (noteId, newText, callback) => {
+    // timeModified will auto-update in DB
+    let sql = `UPDATE Notes SET entryText = '${newText}' WHERE noteId LIKE '${noteId}';`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
