@@ -62,9 +62,11 @@ DROP TABLE IF EXISTS Comments;
   commentText TEXT,
   postedBy int(10) references Users(userId),
   postedOn varchar(36) references Notes(noteId),
-  timePosted DATETIME,
+  timePosted DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   primary key (commentId)
  );
+
+--ALTER TABLE `Comments` CHANGE COLUMN `timePosted` `timePosted` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 DROP TABLE IF EXISTS Sharegroups;
 CREATE TABLE Sharegroups (
