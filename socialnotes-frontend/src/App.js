@@ -37,12 +37,12 @@ export default class App extends Component {
         }
     };
 
+    // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
-            <NoteList notes={this.state.data}/>
-            //   this.state.loggedIn ?
-            //   <Login />
-            //   : <Register status={this.loggedIn}/>
+              this.state.loggedIn ?
+              <Login />
+              : <Register status={this.loggedIn}/>
         )
     }
 }
