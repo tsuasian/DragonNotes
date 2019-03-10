@@ -19,6 +19,11 @@ exports.getNotesInGroup = (groupId, callback) => {
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
+exports.getNotesByUser = (userId, callback) => {
+    const sql = `SELECT * FROM Notes WHERE postedBy = ${userId}`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
 // Add a new note
 exports.addNote = (userId, noteText, callback) => {
 
