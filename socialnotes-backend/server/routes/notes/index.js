@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const dbNoteFunctions = require("../../database_functions/note_functions.js");
+const dbNoteFunctions = require("../../database_functions/notes_functions.js");
 
 module.exports = () => {
     router.get('/', (req, resp, next) => {

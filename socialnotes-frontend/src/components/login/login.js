@@ -14,7 +14,12 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      user: ""
+      username: "",
+      password: "",
+      confPassword: "",
+      email: "",
+      fName: "",
+      lName: ""
     }
   }
 
@@ -22,37 +27,113 @@ class Login extends Component {
   //
   // }
 
-  onClick() {
-    console.log("clicked!")
-    axios.get("http://localhost:8080")
+  onChange = (field) => (e) => {
+    this.setState({
+      [field]: e.target.value
+    })
+  }
+  //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
+  onRegister = () => {
+    console.log("state", this.state)
+    axios.post("http://localhost:8080/registerUser", {
+      password: this.state.password,
+      userName: this.state.username,
+      email: this.state.email,
+      fName: this.state.fName,
+      lName: this.state.lName
+    })
     .then((data) => {
       console.log(data)
-      var first = data.data[0].firstName
-      var last = data.data[0].lastName
-      var name = first + " " + last
-      this.setState({
-        user: name
-      })
-      console.log("state", this.state)
+      this.props.status(true)
     })
-    .catch((err) => {
-      console.log(err)
-    })
+    .catch((err) => console.log(err))
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-      <div className="grandma">
-        <div className="user-input">
-          <button id="click" onClick={() => this.onClick()}>Get test</button>
+      <div className="main">
+      <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+        <div className="loginPageBody">
+          <Paper className="loginPaper" elevation={1}>
+            <Face />
+            <h1> (Login) </h1>
+            <div className="usernameText">
+              <Person className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('username')}
+                value={this.state.username}
+                id="username"
+                margin="normal"
+                type="text"
+                placeholder="Username"/>
+            </div>
+
+            <div className="usernameText">
+              <Person className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('fName')}
+                value={this.state.fName}
+                id="fName"
+                margin="normal"
+                type="text"
+                placeholder="First Name"/>
+            </div>
+
+            <div className="usernameText">
+              <Person className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('lName')}
+                value={this.state.lName}
+                id="lName"
+                margin="normal"
+                type="text"
+                placeholder="Last Name"/>
+            </div>
+
+            <div className="usernameText">
+              <Person className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('email')}
+                value={this.state.email}
+                id="lName"
+                margin="normal"
+                type="text"
+                placeholder="email"/>
+            </div>
+
+            <div className="usernameText">
+              <Lock className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('password')}
+                type="password"
+                margin="normal"
+                value={this.state.password}
+                placeholder="Password"/>
+            </div>
+            <div className="usernameText">
+              <Lock className="iconsyay"/>
+              <TextField
+                className="lastinputLog"
+                onChange={this.onChange('confPassword')}
+                type="password"
+                value={this.state.confPassword}
+                margin="normal"
+                placeholder="Retype Password"/>
+            </div>
+              <Button
+                className="btnStyleCustom"
+                onClick={this.onRegister}
+                >Register
+              </Button>
+              <Button
+                className="btnStyleCustom"
+                // onClick={this.onSwitchMode.bind(this)}
+                >Go Back to Login
+              </Button>
+          </Paper>
         </div>
-        <div className="output">
-          User: {this.state.user}
-        </div>
-      </div>
+        </MuiThemeProvider>
       </div>
     );
   }
