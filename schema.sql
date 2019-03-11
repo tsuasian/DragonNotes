@@ -1,6 +1,7 @@
 
 -- SOCIALNOTES DB SCHEMA
 
+--passwordHash is a SHA256 hash
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
 userId int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -32,23 +33,28 @@ noteId varchar(36),
 entryText TEXT,
 postedBy int(10) references Users(id),
 timePosted DATETIME,
-timeModified DATETIME,
+timeModified DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 primary key (noteId)
 );
+
+--ALTER TABLE `Notes` CHANGE COLUMN `timeModified` `timeModified` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
 
 INSERT INTO Notes VALUES ('633fa848-bb51-4a81-903a-8b531a4847ce', 'My name is Tim', 1, '2019-02-23 14:11:09', '2019-02-23 14:11:09');
 INSERT INTO Notes VALUES ('6dccd43f-856e-452d-b508-e43b199fb931', 'My name is DanP', 2, '2019-02-23 14:11:09', '2019-02-23 14:11:09');
 INSERT INTO Notes VALUES ('d9d0938c-6ded-49ce-83fa-764e9dc97293', 'My name is DanK', 3, '2019-02-23 14:11:09', '2019-02-23 14:11:09');
 
 --varchar(36) is a UUID
+--tags should be unique
 DROP TABLE IF EXISTS Tags;
 CREATE TABLE Tags (
   tagId varchar(36),
   tagType VARCHAR(40),
-  name VARCHAR(100),
-  addedBy int(10) references Users(userId),
+  tagName VARCHAR(100),
   primary key (tagId)
-  );
+ );
+
+-- Combination of tagName and tagType must be unique
+ ALTER TABLE `Tags` ADD UNIQUE `tagName_tagType_unique`(`tagName`, `tagType`);
 
 DROP TABLE IF EXISTS Comments;
  CREATE TABLE Comments (
@@ -56,17 +62,21 @@ DROP TABLE IF EXISTS Comments;
   commentText TEXT,
   postedBy int(10) references Users(userId),
   postedOn varchar(36) references Notes(noteId),
-  timePosted DATETIME,
+  timePosted DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   primary key (commentId)
  );
+
+--ALTER TABLE `Comments` CHANGE COLUMN `timePosted` `timePosted` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 DROP TABLE IF EXISTS Sharegroups;
 CREATE TABLE Sharegroups (
 groupId varchar(36),
 groupName varchar(50),
-lastActive DATETIME,
+lastActive DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 primary key (groupId)
 );
+
+--ALTER TABLE `Sharegroups` CHANGE COLUMN `lastActive` `lastActive` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
 
 INSERT INTO Sharegroups VALUES ('94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28', 'CS275', '2019-02-23 14:11:09');
 
@@ -75,6 +85,7 @@ DROP TABLE IF EXISTS NotesTags;
 CREATE TABLE NotesTags (
   itemId varchar(36) references Notes(noteId),
   tagId varchar(36) references Tags(tagId),
+  addedBy int(10) references Users(userId),
   primary key (itemID, tagID)
  );
 

@@ -31,13 +31,12 @@ exports.getUsersByLastName = (lastName, callback) => {
     });
 };
 
-exports.registerUser = (password, fName, lName, uName, email, callback) => {
-    var password = parseInt(password)
-    var fName = (fName).toString()
-    var lName = (lName).toString()
-    var username = (uName).toString()
-    var email = (email).toString()
-    const sql = `INSERT INTO Users (passwordHash, firstName, lastName, userName, email) VALUES (${password}, '${fName}', '${lName}', '${uName}', '${email}') ;`;
+exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
+    fName = (fName).toString();
+    lName = (lName).toString();
+    uName = (uName).toString();
+    email = (email).toString();
+    const sql = `INSERT INTO Users (passwordHash, firstName, lastName, userName, email) VALUES ('${passwordHash}', '${fName}', '${lName}', '${uName}', '${email}') ;`;
     // get a connection from the pool
     db.getConnection(function(err, connection) {
         //callback if server error
