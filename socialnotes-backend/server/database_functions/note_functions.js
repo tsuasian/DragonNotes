@@ -20,13 +20,13 @@ exports.getNotesInGroup = (groupId, callback) => {
 };
 
 exports.getNotesByUser = (userId, callback) => {
-    const sql = `SELECT * FROM Notes WHERE postedBy = ${userId}`;
+    const sql = `SELECT * FROM Notes WHERE postedBy = ${userId} ORDER BY timePosted DESC`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
 // Add a new note
 exports.addNote = (userId, noteText, callback) => {
-
+    noteText = dbFunctions.escapeString(noteText);
     const noteId = uuidv4();
     const datetime = new Date().toLocaleString();
     const sql = `INSERT INTO Notes VALUES ('${noteId}', '${noteText}', ${userId}, '${datetime}','${datetime}')`;
