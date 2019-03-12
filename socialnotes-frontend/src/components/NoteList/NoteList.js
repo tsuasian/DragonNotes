@@ -14,8 +14,8 @@ class NoteList extends React.Component {
         loading: false
     };
 
-    componentDidUpdate() {
-        console.log("The component just updated")
+    componentDidMount() {
+      this.props.updateHandler()
     }
 
     render() {
@@ -40,12 +40,5 @@ class NoteList extends React.Component {
         )
     }
 }
-
-Note.propTypes = {
-    noteText: PropTypes.string,
-    postedBy: PropTypes.string,
-    datePosted: PropTypes.string,
-    edited: PropTypes.bool
-};
 
 export default NoteList

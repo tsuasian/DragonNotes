@@ -15,3 +15,9 @@ exports.makeSqlQuery = (sql, callback) => {
         });
     });
 };
+
+exports.escapeString = (stringToEscape) => {
+    stringToEscape = stringToEscape.replace('\'', '\\\'');
+    stringToEscape = stringToEscape.replace('\;', '\\\;');
+    return stringToEscape;
+};
