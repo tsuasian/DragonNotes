@@ -34,9 +34,9 @@ class Login extends Component {
   }
   //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
 
-  backRegister = () => {
-    this.props.status(false)
-  }
+  // backRegister = () => {
+  //   this.props.status(false)
+  // }
 
   render() {
     return (
@@ -70,11 +70,11 @@ class Login extends Component {
               <Button
                 className="btnStyleCustom"
                 // onClick={this.onRegister}
-                >Register
+                >Login
               </Button>
               <Button
                 className="btnStyleCustom"
-                // onClick={this.backRegister()}
+                onClick={this.props.switchMode}
                 >Go Back to Register
               </Button>
           </Paper>

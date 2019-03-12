@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Login from './components/login/login.js'
+import LogReg from './components/login/logreg.js'
 import NoteList from './components/NoteList/NoteList.js'
 import Register from './components/login/register.js'
 import {AppBar,Button,Toolbar,Table,TableBody,Slide,Tooltip,CircularProgress,CssBaseline,Paper,Typography,IconButton,TextField,MuiThemeProvider} from '@material-ui/core';
@@ -43,7 +44,9 @@ export default class App extends Component {
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
-              this.state.loggedIn ? <Login /> : <Register status={this.loggedIn}/>
+              <LogReg />
+              // <NoteList notes={this.state.data} />
+              // <Register status={this.loggedIn}/>
                 // ? <Login status={this.loggedIn}/>
                 // : <NoteList notes={this.state.data} />
 
