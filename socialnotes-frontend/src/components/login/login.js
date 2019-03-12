@@ -33,20 +33,9 @@ class Login extends Component {
     })
   }
   //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
-  onRegister = () => {
-    console.log("state", this.state)
-    axios.post("http://localhost:8080/registerUser", {
-      password: this.state.password,
-      userName: this.state.username,
-      email: this.state.email,
-      fName: this.state.fName,
-      lName: this.state.lName
-    })
-    .then((data) => {
-      console.log(data)
-      this.props.status(true)
-    })
-    .catch((err) => console.log(err))
+
+  backRegister = () => {
+    this.props.status(false)
   }
 
   render() {
@@ -57,7 +46,7 @@ class Login extends Component {
         <div className="loginPageBody">
           <Paper className="loginPaper" elevation={1}>
             <Face />
-            <h1> (Login) </h1>
+            <h1> Social Notes </h1>
             <div className="usernameText">
               <Person className="iconsyay"/>
               <TextField
@@ -70,39 +59,6 @@ class Login extends Component {
             </div>
 
             <div className="usernameText">
-              <Person className="iconsyay"/>
-              <TextField
-                onChange={this.onChange('fName')}
-                value={this.state.fName}
-                id="fName"
-                margin="normal"
-                type="text"
-                placeholder="First Name"/>
-            </div>
-
-            <div className="usernameText">
-              <Person className="iconsyay"/>
-              <TextField
-                onChange={this.onChange('lName')}
-                value={this.state.lName}
-                id="lName"
-                margin="normal"
-                type="text"
-                placeholder="Last Name"/>
-            </div>
-
-            <div className="usernameText">
-              <Person className="iconsyay"/>
-              <TextField
-                onChange={this.onChange('email')}
-                value={this.state.email}
-                id="lName"
-                margin="normal"
-                type="text"
-                placeholder="email"/>
-            </div>
-
-            <div className="usernameText">
               <Lock className="iconsyay"/>
               <TextField
                 onChange={this.onChange('password')}
@@ -111,25 +67,15 @@ class Login extends Component {
                 value={this.state.password}
                 placeholder="Password"/>
             </div>
-            <div className="usernameText">
-              <Lock className="iconsyay"/>
-              <TextField
-                className="lastinputLog"
-                onChange={this.onChange('confPassword')}
-                type="password"
-                value={this.state.confPassword}
-                margin="normal"
-                placeholder="Retype Password"/>
-            </div>
               <Button
                 className="btnStyleCustom"
-                onClick={this.onRegister}
+                // onClick={this.onRegister}
                 >Register
               </Button>
               <Button
                 className="btnStyleCustom"
-                // onClick={this.onSwitchMode.bind(this)}
-                >Go Back to Login
+                // onClick={this.backRegister()}
+                >Go Back to Register
               </Button>
           </Paper>
         </div>

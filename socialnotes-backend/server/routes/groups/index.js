@@ -2,13 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-<<<<<<< HEAD
-const dbNoteFunctions = require("../../database_functions/notes_functions.js");
-=======
 const dbNoteFunctions = require("../../database_functions/note_functions.js");
 const dbGroupFunctions = require("../../database_functions/group_functions");
 const cors = require('cors');
->>>>>>> be25b87a460ca0ad5ee3fe52fd46f6b5e42a91fa
 
 module.exports = () => {
 

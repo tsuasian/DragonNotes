@@ -18,11 +18,14 @@ export default class App extends Component {
 
     //Get notes for the logged in user
     componentDidMount() {
-        fetch(
-            "http://localhost:8080/notes/1"
-        ).then(
-            data => data.json()
-        ).then(data => this.setState({data}));
+        fetch("http://localhost:8080/notes/1")
+        .then(data => data.json())
+        .then(data => {
+          this.setState({data})
+          console.log(this.state.data)
+          console.log("state loged in", this.state.loggedIn)
+        })
+        .catch(err => console.log(err))
     }
 
     loggedIn = (status) => {
@@ -40,9 +43,10 @@ export default class App extends Component {
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
-              this.state.loggedIn ?
-              <Login />
-              : <Register status={this.loggedIn}/>
+              this.state.loggedIn ? <Login /> : <Register status={this.loggedIn}/>
+                // ? <Login status={this.loggedIn}/>
+                // : <NoteList notes={this.state.data} />
+
         )
     }
 }
@@ -50,7 +54,3 @@ export default class App extends Component {
 App.propTypes = {
     data: PropTypes.array
 };
-
-
-
-

@@ -49,6 +49,10 @@ class Register extends Component {
     .catch((err) => console.log(err))
   }
 
+  backLogin = () => {
+    this.props.status(true)
+  }
+
   render() {
     return (
       <div className="main">
@@ -128,7 +132,7 @@ class Register extends Component {
               </Button>
               <Button
                 className="btnStyleCustom"
-                // onClick={this.onSwitchMode.bind(this)}
+                onClick={() => this.backLogin()}
                 >Go Back to Login
               </Button>
           </Paper>
