@@ -23,9 +23,6 @@ class Register extends Component {
     }
   }
 
-  // componentDidMount() {
-  //
-  // }
 
   onChange = (field) => (e) => {
     this.setState({
@@ -44,10 +41,11 @@ class Register extends Component {
     })
     .then((data) => {
       console.log(data)
-      this.props.status(true)
+      if (data.status == "200") { this.props.status(true) }
     })
     .catch((err) => console.log(err))
   }
+
 
   render() {
     return (
@@ -128,7 +126,7 @@ class Register extends Component {
               </Button>
               <Button
                 className="btnStyleCustom"
-                // onClick={this.onSwitchMode.bind(this)}
+                onClick={this.props.switchMode}
                 >Go Back to Login
               </Button>
           </Paper>

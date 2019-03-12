@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import Login from './components/login/login.js'
+import LogReg from './components/login/logreg.js'
 import NoteList from './components/NoteList/NoteList.js'
 import Register from './components/login/register.js'
 import {AppBar,Button,Toolbar,Table,TableBody,Slide,Tooltip,CircularProgress,CssBaseline,Paper,Typography,IconButton,TextField,MuiThemeProvider} from '@material-ui/core';

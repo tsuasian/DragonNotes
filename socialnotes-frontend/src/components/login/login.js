@@ -14,7 +14,12 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      user: ""
+      username: "",
+      password: "",
+      confPassword: "",
+      email: "",
+      fName: "",
+      lName: ""
     }
   }
 
@@ -22,37 +27,59 @@ class Login extends Component {
   //
   // }
 
-  onClick() {
-    console.log("clicked!")
-    axios.get("http://localhost:8080")
-    .then((data) => {
-      console.log(data)
-      var first = data.data[0].firstName
-      var last = data.data[0].lastName
-      var name = first + " " + last
-      this.setState({
-        user: name
-      })
-      console.log("state", this.state)
-    })
-    .catch((err) => {
-      console.log(err)
+  onChange = (field) => (e) => {
+    this.setState({
+      [field]: e.target.value
     })
   }
+  //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
+
+  // backRegister = () => {
+  //   this.props.status(false)
+  // }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-      <div className="grandma">
-        <div className="user-input">
-          <button id="click" onClick={() => this.onClick()}>Get test</button>
+      <div className="main">
+      <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+        <div className="loginPageBody">
+          <Paper className="loginPaper" elevation={1}>
+            <Face />
+            <h1> Social Notes </h1>
+            <div className="usernameText">
+              <Person className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('username')}
+                value={this.state.username}
+                id="username"
+                margin="normal"
+                type="text"
+                placeholder="Username"/>
+            </div>
+
+            <div className="usernameText">
+              <Lock className="iconsyay"/>
+              <TextField
+                onChange={this.onChange('password')}
+                type="password"
+                margin="normal"
+                value={this.state.password}
+                placeholder="Password"/>
+            </div>
+              <Button
+                className="btnStyleCustom"
+                // onClick={this.onRegister}
+                >Login
+              </Button>
+              <Button
+                className="btnStyleCustom"
+                onClick={this.props.switchMode}
+                >Go Back to Register
+              </Button>
+          </Paper>
         </div>
-        <div className="output">
-          User: {this.state.user}
-        </div>
-      </div>
+        </MuiThemeProvider>
       </div>
     );
   }
