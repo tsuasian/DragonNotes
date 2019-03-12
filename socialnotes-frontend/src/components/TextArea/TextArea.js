@@ -50,13 +50,13 @@ class TextArea extends React.Component {
         // https://reactjs.org/docs/forms.html
         event.preventDefault();
 
-        // console.log("state", this.state)
         axios.post("http://localhost:8080/notes", {
             postText: this.state.inputBoxText,
             userId: '1'
         }).then((data) => {
                 console.log(data)
-                // this.props.status(true)
+                this.state.updateHandler()
+                this.setState({ inputBoxText: '' })
             })
             .catch((err) => console.log(err))
     }
@@ -82,7 +82,7 @@ class TextArea extends React.Component {
                     onChange={this.handleChange('inputBoxText')}
                 />
 
-                <div onClick={this.state.updateHandler}>
+                <div>
                 <Fab color="primary" aria-label="Add" className={classes.fab} type="submit" value="Submit">
                     <AddIcon />
                 </Fab>

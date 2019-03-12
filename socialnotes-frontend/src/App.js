@@ -67,7 +67,3 @@ export default class App extends Component {
 App.propTypes = {
     data: PropTypes.array
 };
-
-
-
-
