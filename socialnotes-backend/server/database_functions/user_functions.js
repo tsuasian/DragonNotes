@@ -1,5 +1,6 @@
 'use strict';
 const db = require('../db.js');
+const dbFunctions = require("./db_functions.js");
 
 // Example functions
 exports.getUsersByFirstName = (firstName, callback) => {
@@ -41,7 +42,6 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
     db.getConnection(function(err, connection) {
         //callback if server error
         if(err) { console.log(err); callback(true); return; }
-        // make the query
         connection.query(sql, function(err, results) {
             connection.release();
             if(err) { console.log(err); callback(true); return; }
@@ -49,3 +49,9 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
         });
     });
 };
+
+// Check if email/password combination exists for login purposes
+exports.ExistUser = (email, passHash, callback) => {
+    const sql = `Select email FROM Users WHERE email = '${email}' AND passwordHash = '${passHash}';`
+    dbFunctions.makeSqlQuery(sql, callback);
+}
