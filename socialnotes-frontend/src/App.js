@@ -9,14 +9,25 @@ import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
 import PropTypes from "prop-types";
 import NoteArea from "./components/NoteArea/NoteArea";
 
+const groups = [{"groupName": "CS275",
+    "id":"1dce59ba-a321-405c-a8fb-a0dbb9ca7a9a"
+},
+    {"groupName": "CS244",
+        "id":"1dce55ba-a321-405c-a8fb-a0dbb9ca7a9a"
+    }
+];
+
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loggedIn: false,
-            data: []
+            data: [],
+            groups: []
         };
         this.updateMe = this.updateMe.bind(this);
+        this.getGroups = this.getGroups.bind(this);
+
     }
 
     updateMe() {
@@ -27,6 +38,7 @@ export default class App extends Component {
     //Get notes for the logged in user
     componentDidMount() {
         this.updateList();
+        this.getGroups();
     }
 
     updateList() {
@@ -35,6 +47,14 @@ export default class App extends Component {
         ).then(
             data => data.json()
         ).then(data => this.setState({data}));
+    }
+
+    getGroups() {
+        fetch(
+            "http://localhost:8080/groups/user/1"
+        ).then(
+            groups => groups.json()
+        ).then(groups => this.setState({groups}));
     }
 
     loggedIn = (status) => {
@@ -54,7 +74,7 @@ export default class App extends Component {
         return (
             <Fragment>
 
-                <NoteArea notes={this.state.data} updateHandler={this.updateMe}/>
+                <NoteArea notes={this.state.data} updateHandler={this.updateMe} groups={this.state.groups}/>
 
 
             </Fragment>
