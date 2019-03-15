@@ -81,12 +81,15 @@ primary key (groupId)
 INSERT INTO Sharegroups VALUES ('94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28', 'CS275', '2019-02-23 14:11:09');
 
 -- Which items have which tags
+--These records are deleted if either the note or the tag is deleted.
 DROP TABLE IF EXISTS NotesTags;
 CREATE TABLE NotesTags (
-  itemId varchar(36) references Notes(noteId),
-  tagId varchar(36) references Tags(tagId),
-  addedBy int(10) references Users(userId),
-  primary key (itemID, tagID)
+  noteId varchar(36),
+  tagId varchar(36),
+  addedBy int(10) REFERENCES Users(userId),
+  PRIMARY KEY (noteId, tagID),
+  FOREIGN KEY (noteId) REFERENCES Notes(noteId) ON DELETE CASCADE,
+  FOREIGN KEY (tagId) REFERENCES Tags(tagId) ON DELETE CASCADE
  );
 
 -- Which users are in which groups
@@ -101,13 +104,16 @@ INSERT INTO UsersGroups VALUES (1, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
 INSERT INTO UsersGroups VALUES (2, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
 INSERT INTO UsersGroups VALUES (3, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
 
--- Which notes are shared in which groups
+-- Which notes are shared in which groups.
+-- These records are deleted if either the group or the note is deleted.
 DROP TABLE IF EXISTS NotesGroups;
 CREATE TABLE NotesGroups (
-  noteId varchar(36) references Notes(noteId),
+  noteId varchar(36),
   groupId varchar(36) references Sharegroups(groupId),
   timeShared DATETIME,
-  primary key (noteId, groupId)
+  PRIMARY KEY (noteId, groupId),
+  FOREIGN KEY (noteId) REFERENCES Notes(noteId) ON DELETE CASCADE,
+  FOREIGN KEY (groupId) REFERENCES Sharegroups(groupId) ON DELETE CASCADE
 );
 
 INSERT INTO NotesGroups VALUES ('633fa848-bb51-4a81-903a-8b531a4847ce', '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28', '2019-02-23 14:11:09');

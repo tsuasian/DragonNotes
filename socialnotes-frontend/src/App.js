@@ -19,12 +19,12 @@ export default class App extends Component {
             data: [],
             groups: []
         };
-        this.updateMe = this.updateMe.bind(this);
+        this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
 
     }
 
-    updateMe() {
+    refreshList() {
         console.log('updating!!!!!!');
         this.updateList();
     }
@@ -69,7 +69,7 @@ export default class App extends Component {
             <div className="App">
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar/>
-                <NoteArea notes={this.state.data} updateHandler={this.updateMe} groups={this.state.groups}/>
+                <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups}/>
 
                 </MuiThemeProvider>
             </div>

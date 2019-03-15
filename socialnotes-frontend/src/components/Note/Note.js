@@ -24,29 +24,21 @@ export class Note extends React.Component {
 
     deleteNote = () => {
         const { noteId } = this.props;
-        console.log("gonna delete note: " + noteId);
+        const { updateHandler } = this.props;
 
-        // const token = localStorage.getItem('sessionToken');
+        // We should really send a token to validate this deletion
+        // e.g. const token = localStorage.getItem('sessionToken');
         const deleteEndpoint = `http://localhost:8080/notes/delete/`;
         axios.post(deleteEndpoint, {
             noteId: noteId,
         })
             .then(function (response) {
                 console.log(response);
+                updateHandler(); // refresh the list
             })
             .catch(function (error) {
                 console.log(error);
             });
-
-        //
-        //
-        // axios.get(deleteEndpoint, {params: {itemId: this.state.id, session_token: token}})
-        //     .then(this.state.deleteCallback)
-
-
-
-
-
 
         this.handleMenuClose();
     };
@@ -67,9 +59,6 @@ export class Note extends React.Component {
         const { postedBy } = this.props;
         const { timePosted } = this.props;
         const { edited } = this.props;
-        const { noteId } = this.props;
-        console.log("noteId: " + noteId);
-
         const { anchorEl } = this.state;
         // const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
