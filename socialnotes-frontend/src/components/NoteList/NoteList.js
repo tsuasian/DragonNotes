@@ -17,7 +17,7 @@ class NoteList extends React.Component {
     componentDidMount() {
       this.props.updateHandler()
     }
-    
+
     render() {
         const { notes } = this.props;
         const { groups } = this.props;
@@ -33,6 +33,7 @@ class NoteList extends React.Component {
                                     noteText={note.entryText}
                                     postedBy={note.postedBy}
                                     timePosted={note.timePosted}
+                                    noteId={note.noteId}
                                     edited={this.state.open}
                                     groups={groups}/>
                         )}

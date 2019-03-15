@@ -7,10 +7,11 @@ import ShareModal from "../ShareDialog/ShareDialog"
 import Menu from "@material-ui/core/Menu/Menu";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import theme from '../../theme/theme';
+const axios = require('axios');
 
 export class Note extends React.Component {
     state = {
-        anchorEl: null,
+        anchorEl: null
     };
 
     handleProfileMenuOpen = event => {
@@ -19,6 +20,35 @@ export class Note extends React.Component {
 
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
+    };
+
+    deleteNote = () => {
+        const { noteId } = this.props;
+        console.log("gonna delete note: " + noteId);
+
+        // const token = localStorage.getItem('sessionToken');
+        const deleteEndpoint = `http://localhost:8080/notes/delete/`;
+        axios.post(deleteEndpoint, {
+            noteId: noteId,
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        //
+        //
+        // axios.get(deleteEndpoint, {params: {itemId: this.state.id, session_token: token}})
+        //     .then(this.state.deleteCallback)
+
+
+
+
+
+
+        this.handleMenuClose();
     };
 
     //https://stackoverflow.com/questions/27012854/change-iso-date-string-to-date-object-javascript
@@ -30,8 +60,6 @@ export class Note extends React.Component {
         return `${date}, ${time}`;
     };
 
-
-
     render() {
 
         const { noteText } = this.props;
@@ -39,6 +67,8 @@ export class Note extends React.Component {
         const { postedBy } = this.props;
         const { timePosted } = this.props;
         const { edited } = this.props;
+        const { noteId } = this.props;
+        console.log("noteId: " + noteId);
 
         const { anchorEl } = this.state;
         // const { classes } = this.props;
@@ -53,7 +83,7 @@ export class Note extends React.Component {
                 onClose={this.handleMenuClose}
             >
                 <MenuItem onClick={this.handleMenuClose}>Edit</MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>Delete</MenuItem>
+                <MenuItem onClick={this.deleteNote}>Delete</MenuItem>
             </Menu>
         );
 
