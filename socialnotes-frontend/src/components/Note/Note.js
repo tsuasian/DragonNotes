@@ -60,6 +60,7 @@ export class Note extends React.Component {
         const { timePosted } = this.props;
         const { edited } = this.props;
         const { anchorEl } = this.state;
+        const { noteId } = this.props;
         // const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
 
@@ -106,7 +107,8 @@ export class Note extends React.Component {
                     {/*<IconButton aria-label="Share">*/}
                     {/*<ShareIcon />*/}
                     {/*</IconButton>*/}
-                    <ShareModal groups={groups}/>
+                    <ShareModal groups={groups} noteId={noteId}/>
+
                 </CardActions>
                 {renderMenu}
             </Card>

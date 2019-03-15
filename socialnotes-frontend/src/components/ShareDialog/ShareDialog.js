@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,11 +10,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue';
 import ShareIcon from '@material-ui/icons/Share';
 import {IconButton} from "@material-ui/core";
-import CardActions from "@material-ui/core/CardActions/CardActions";
+const axios = require('axios');
 
 // const emails = ['username@gmail.com', 'user02@gmail.com'];
 const styles = {
@@ -30,12 +28,26 @@ class ShareDialog extends React.Component {
         this.props.onClose(this.props.selectedValue);
     };
 
-    handleListItemClick = value => {
-        this.props.onClose(value);
+    shareNoteInGroup = groupId => {
+        const shareEndpoint = `http://localhost:8080/groups/notes/`;
+        axios.post(shareEndpoint, {
+            noteId: this.props.noteId,
+            groupId: groupId
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        this.props.onClose(groupId);
+        console.log("gonna share note with groupId " + groupId + " and the note is " + this.props.noteId);
     };
 
+
+
     render() {
-        const { classes, onClose, selectedValue, ...other } = this.props;
+        const { classes, noteId, onClose, selectedValue, ...other } = this.props;
 
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
@@ -43,7 +55,7 @@ class ShareDialog extends React.Component {
                 <div>
                     <List>
                         {this.props.groups.map(group => (
-                            <ListItem button onClick={() => this.handleListItemClick(group.groupName)} key={group.groupName}>
+                            <ListItem button onClick={() => this.shareNoteInGroup(group.groupId)} key={group.groupName}>
                                 <ListItemAvatar>
                                     <Avatar className={classes.avatar}>
                                         <PersonIcon />
@@ -108,6 +120,7 @@ class ShareModal extends React.Component {
                     open={this.state.open}
                     onClose={this.handleClose}
                     groups={this.props.groups}
+                    noteId={this.props.noteId}
                 />
             </div>
         );
