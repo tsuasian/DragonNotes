@@ -8,14 +8,23 @@ import './components/css/register.css'
 import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
 import PropTypes from "prop-types";
 import NoteArea from "./components/NoteArea/NoteArea";
+import HeaderBar from "./components/HeaderBar/HeaderBar";
+import {createMuiTheme} from '@material-ui/core/styles';
+// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-const groups = [{"groupName": "CS275",
-    "id":"1dce59ba-a321-405c-a8fb-a0dbb9ca7a9a"
-},
-    {"groupName": "CS244",
-        "id":"1dce55ba-a321-405c-a8fb-a0dbb9ca7a9a"
-    }
-];
+//Material UI theme
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#47BBD5',
+            contrastText: '#fff',
+        },
+        secondary: {
+            main: '#77A6F6',
+        },
+
+    },
+});
 
 export default class App extends Component {
     constructor(props) {
@@ -72,12 +81,13 @@ export default class App extends Component {
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
-            <Fragment>
-
+            <div className="App">
+                <MuiThemeProvider theme={theme}>
+                <HeaderBar/>
                 <NoteArea notes={this.state.data} updateHandler={this.updateMe} groups={this.state.groups}/>
 
-
-            </Fragment>
+                </MuiThemeProvider>
+            </div>
             // this.state.loggedIn ?
               // <Login />
               // : <Register status={this.loggedIn}/>
