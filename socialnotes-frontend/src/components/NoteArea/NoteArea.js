@@ -1,18 +1,8 @@
 import React, {Fragment} from 'react'
 import NoteList from "../NoteList/NoteList";
-import TextField from '@material-ui/core/TextField';
 import TextArea from "../TextArea/TextArea";
 
 class NoteArea extends React.Component {
-
-    // constructor(props){
-    //     super(props);
-    //
-    //     state = {
-    //         notes: this.props.notes,
-    //         loading: false
-    //     };
-    // }
 
     state = {
         notes: [],
@@ -31,13 +21,12 @@ class NoteArea extends React.Component {
     render() {
 
         const { notes } = this.props;
+        const { groups } = this.props;
         const { updateHandler } = this.props;
         return (
             <Fragment>
                 <TextArea updateHandler={updateHandler}/>
-            <div>
-                <NoteList notes={notes} updateHandler={updateHandler}/>
-            </div>
+                <NoteList notes={notes} updateHandler={updateHandler} groups={groups}/>
             </Fragment>
         )
     }

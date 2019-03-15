@@ -4,8 +4,9 @@ import {Card, CardContent, CardHeader, Avatar, IconButton} from '@material-ui/co
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 import CardActions from "@material-ui/core/CardActions/CardActions";
+import ShareModal from "../ShareDialog/ShareDialog"
 
-export const Note = ({noteText="-", postedBy= "-", timePosted="-", edited}) => {
+export const Note = ({noteText="-", postedBy= "-", timePosted="-", edited, groups}) => {
     return (
         <Card className={'noteCard'}>
             <CardHeader
@@ -28,9 +29,10 @@ export const Note = ({noteText="-", postedBy= "-", timePosted="-", edited}) => {
             </CardContent>
 
             <CardActions className={'actions'} disableActionSpacing>
-                <IconButton aria-label="Share">
-                    <ShareIcon />
-                </IconButton>
+                {/*<IconButton aria-label="Share">*/}
+                    {/*<ShareIcon />*/}
+                {/*</IconButton>*/}
+                <ShareModal groups={groups}/>
             </CardActions>
 
         </Card>

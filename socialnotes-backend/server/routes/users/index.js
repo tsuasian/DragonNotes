@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const dbUserFunctions = require("../../database_functions/user_functions.js");
+const dbGroupFunctions = require("../../database_functions/group_functions.js");
 const cors = require('cors');
 
 
@@ -31,5 +32,19 @@ module.exports = () => {
             res.send(results);
         });
     });
+
+    // // Get all groups that a given user is a member of
+    // router.get('/:userId/groups', (req, resp, next) => {
+    //     const uid = req.params.userId;
+    //
+    //     dbGroupFunctions.getGroupsByUser(uid, function (err, results) {
+    //         if(err) { resp.send(500,"Server Error"); return;}
+    //         resp.send(results);
+    //     });
+    // });
+
+
+
+
     return router;
 };

@@ -23,6 +23,16 @@ module.exports = () => {
         });
     });
 
+    // Get all groups that a given user is a member of
+    router.get('/user/:userId', (req, resp, next) => {
+        const uid = req.params.userId;
+
+        dbGroupFunctions.getGroupsByUser(uid, function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
+    });
+
     // Create a new group
     // Body of request should look like this:
     // {
