@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions/CardActions";
 import ShareModal from "../ShareDialog/ShareDialog"
 import Menu from "@material-ui/core/Menu/Menu";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import theme from '../../theme/theme';
 
 export class Note extends React.Component {
     state = {
@@ -20,9 +21,15 @@ export class Note extends React.Component {
         this.setState({ anchorEl: null });
     };
 
+    //https://stackoverflow.com/questions/27012854/change-iso-date-string-to-date-object-javascript
     renderTimePosted = (timePosted) => {
-
+        let digits = timePosted.split(/\D+/);
+        let d = new Date(Date.UTC(digits[0], --digits[1], digits[2], digits[3], digits[4], digits[5], digits[6]));
+        const date = d.toDateString().slice(0, -5); // Date minus year
+        const time = d.toTimeString().slice(0, 5); // Time minus seconds and GMT info
+        return `${date}, ${time}`;
     };
+
 
 
     render() {
@@ -54,7 +61,7 @@ export class Note extends React.Component {
             <Card className={'noteCard'}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Note" style={{backgroundColor: '#f44336'}} className={'red'}>
+                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"]}} className={'red'}>
                             {postedBy}
                         </Avatar>
                     }
@@ -69,7 +76,7 @@ export class Note extends React.Component {
                         </IconButton>
                     }
                     title={noteText.split(' ')[0]}
-                    subheader={timePosted}
+                    subheader={this.renderTimePosted(timePosted)}
                 />
                 <CardContent>
                     <p>{noteText}</p>

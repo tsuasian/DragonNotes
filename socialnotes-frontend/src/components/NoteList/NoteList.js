@@ -17,7 +17,7 @@ class NoteList extends React.Component {
     componentDidMount() {
       this.props.updateHandler()
     }
-
+    
     render() {
         const { notes } = this.props;
         const { groups } = this.props;
