@@ -4,9 +4,26 @@ import {Card, CardContent, CardHeader, Avatar, IconButton} from '@material-ui/co
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActions from "@material-ui/core/CardActions/CardActions";
 import ShareModal from "../ShareDialog/ShareDialog"
+import Menu from "@material-ui/core/Menu/Menu";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 
 export class Note extends React.Component {
-    state = {};
+    state = {
+        anchorEl: null,
+    };
+
+    handleProfileMenuOpen = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
+    renderTimePosted = (timePosted) => {
+
+    };
+
 
     render() {
 
@@ -15,6 +32,23 @@ export class Note extends React.Component {
         const { postedBy } = this.props;
         const { timePosted } = this.props;
         const { edited } = this.props;
+
+        const { anchorEl } = this.state;
+        // const { classes } = this.props;
+        const isMenuOpen = Boolean(anchorEl);
+
+        const renderMenu = (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMenuOpen}
+                onClose={this.handleMenuClose}
+            >
+                <MenuItem onClick={this.handleMenuClose}>Edit</MenuItem>
+                <MenuItem onClick={this.handleMenuClose}>Delete</MenuItem>
+            </Menu>
+        );
 
         return (
             <Card className={'noteCard'}>
@@ -28,7 +62,7 @@ export class Note extends React.Component {
                         <IconButton
                             // aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                             aria-haspopup="true"
-                            // onClick={this.handleProfileMenuOpen}
+                            onClick={this.handleProfileMenuOpen}
                             color="inherit"
                         >
                             <MoreVertIcon />
@@ -48,8 +82,9 @@ export class Note extends React.Component {
                     {/*</IconButton>*/}
                     <ShareModal groups={groups}/>
                 </CardActions>
-
+                {renderMenu}
             </Card>
+
         )
 
     }
