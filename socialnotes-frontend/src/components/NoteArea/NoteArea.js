@@ -23,10 +23,11 @@ class NoteArea extends React.Component {
         const { notes } = this.props;
         const { groups } = this.props;
         const { updateHandler } = this.props;
+        const { userName } = this.props;
         return (
             <Fragment>
                 <TextArea updateHandler={updateHandler}/>
-                <NoteList notes={notes} updateHandler={updateHandler} groups={groups}/>
+                <NoteList notes={notes} updateHandler={updateHandler} groups={groups} userName={userName}/>
             </Fragment>
         )
     }

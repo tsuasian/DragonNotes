@@ -22,6 +22,7 @@ class NoteList extends React.Component {
         const { notes } = this.props;
         const { groups } = this.props;
         const { updateHandler } = this.props;
+        const { userName } = this.props;
         return (
             <div>
                 {this.state.loading
@@ -37,7 +38,8 @@ class NoteList extends React.Component {
                                     noteId={note.noteId}
                                     edited={this.state.open}
                                     updateHandler ={updateHandler}
-                                    groups={groups}/>
+                                    groups={groups}
+                                    userName={userName}/>
                         )}
                     </div>
                 }

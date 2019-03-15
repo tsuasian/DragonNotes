@@ -61,6 +61,7 @@ export class Note extends React.Component {
         const { edited } = this.props;
         const { anchorEl } = this.state;
         const { noteId } = this.props;
+        const { userName} = this.props;
         // const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
 
@@ -82,7 +83,7 @@ export class Note extends React.Component {
                 <CardHeader
                     avatar={
                         <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"]}} className={'red'}>
-                            {postedBy}
+                            {userName.split(' ')[0].slice(0,1) + userName.split(' ')[1].slice(0,1) }
                         </Avatar>
                     }
                     action={
@@ -95,7 +96,7 @@ export class Note extends React.Component {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={noteText.split(' ')[0]}
+                    title={userName}
                     subheader={this.renderTimePosted(timePosted)}
                 />
                 <CardContent>

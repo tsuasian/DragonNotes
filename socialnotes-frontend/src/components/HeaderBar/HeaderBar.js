@@ -18,6 +18,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import GroupIcon from '@material-ui/icons/Group';
 import CreateIcon from '@material-ui/icons/Create';
+import {Avatar} from "@material-ui/core";
+import theme from "../../theme/theme";
 
 const styles = theme => ({
     root: {
@@ -175,18 +177,21 @@ class HeaderBar extends React.Component {
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                             SocialNotes
                         </Typography>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
+                        {/*<Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"], marginLeft: '32%'}} className={'red'}>*/}
+                            {/*{'TC'}*/}
+                        {/*</Avatar>*/}
+                        {/*<div className={classes.search}>*/}
+                            {/*<div className={classes.searchIcon}>*/}
+                                {/*<SearchIcon />*/}
+                            {/*</div>*/}
+                            {/*<InputBase*/}
+                                {/*placeholder="Search…"*/}
+                                {/*classes={{*/}
+                                    {/*root: classes.inputRoot,*/}
+                                    {/*input: classes.inputInput,*/}
+                                {/*}}*/}
+                            {/*/>*/}
+                        {/*</div>*/}
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton color="inherit">

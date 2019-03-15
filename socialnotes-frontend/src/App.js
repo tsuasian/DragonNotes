@@ -69,8 +69,7 @@ export default class App extends Component {
             <div className="App">
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar/>
-                <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups}/>
-
+                <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"}/>
                 </MuiThemeProvider>
             </div>
             // this.state.loggedIn ?
