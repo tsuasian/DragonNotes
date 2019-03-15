@@ -9,22 +9,7 @@ import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
 import PropTypes from "prop-types";
 import NoteArea from "./components/NoteArea/NoteArea";
 import HeaderBar from "./components/HeaderBar/HeaderBar";
-import {createMuiTheme} from '@material-ui/core/styles';
-// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-
-//Material UI theme
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#2196f3',
-            contrastText: '#fff',
-        },
-        secondary: {
-            main: '#77A6F6',
-        },
-
-    },
-});
+import theme from './theme/theme'; // Material UI theme that sets colors, fonts etc for project
 
 export default class App extends Component {
     constructor(props) {
@@ -34,12 +19,12 @@ export default class App extends Component {
             data: [],
             groups: []
         };
-        this.updateMe = this.updateMe.bind(this);
+        this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
 
     }
 
-    updateMe() {
+    refreshList() {
         console.log('updating!!!!!!');
         this.updateList();
     }
@@ -84,7 +69,7 @@ export default class App extends Component {
             <div className="App">
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar/>
-                <NoteArea notes={this.state.data} updateHandler={this.updateMe} groups={this.state.groups}/>
+                <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups}/>
 
                 </MuiThemeProvider>
             </div>

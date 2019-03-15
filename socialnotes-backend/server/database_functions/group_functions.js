@@ -30,8 +30,9 @@ exports.modifyGroupName = (groupName, groupId, callback) => {
 // Get all the groups that a given user is a member of
 exports.getGroupsByUser = (userId, callback) => {
 	//Select DISTINCT groupName FROM Sharegroups JOIN UsersGroups WHERE  userId = '1' ORDER BY Sharegroups.lastActive DESC;
-	const sql = `Select DISTINCT groupName, Sharegroups.groupId FROM Sharegroups JOIN UsersGroups WHERE UsersGroups.userId = '${userId}';`;
-	dbFunctions.makeSqlQuery(sql, callback);
+	// const sql = `Select DISTINCT groupName, Sharegroups.groupId FROM Sharegroups JOIN UsersGroups WHERE UsersGroups.userId = '${userId}';`;
+    const sql = `select UsersGroups.groupId, Sharegroups.groupName from UsersGroups JOIN Sharegroups on UsersGroups.groupId = Sharegroups.groupId WHERE userId = '${userId}';`;
+    dbFunctions.makeSqlQuery(sql, callback);
 };
 
 

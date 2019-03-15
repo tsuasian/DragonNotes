@@ -48,3 +48,9 @@ exports.editNote = (noteId, newText, callback) => {
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
+// Delete a note
+exports.deleteNote = (noteId, callback) => {
+    let sql = `DELETE FROM Notes WHERE noteId LIKE '${noteId}';`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+

@@ -1,18 +1,26 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import pink from "@material-ui/core/es/colors/pink";
+import teal from "@material-ui/core/es/colors/teal";
+import blue from "@material-ui/core/es/colors/blue";
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#c2eafc',
-      main: '#b3e5fc',
-      dark: '#7da0b0'
+  // palette: {
+  //   primary: {
+  //     light: '#c2eafc',
+  //     main: '#b3e5fc',
+  //     dark: '#7da0b0'
+  //   },
+  //   secondary: {
+  //     light: '#f6a5c0',
+  //     main: '#f48fb1',
+  //     dark: '#aa647b'
+  //   }
+  // },
+
+    palette: {
+        primary: blue,
+            secondary: pink,
     },
-    secondary: {
-      light: '#f6a5c0',
-      main: '#f48fb1',
-      dark: '#aa647b'
-    }
-  },
   overrides: {
     MuiButton: {
       root: {

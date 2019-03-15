@@ -55,5 +55,20 @@ module.exports = () => {
         });
     });
 
+    // Delete a note.
+    // Body of requests should look like this:
+    // {
+    //     "noteId": "30799eee-4b98-4f2f-9f21-eb9e4464001f"
+    // }
+    router.post('/delete', cors(), (req, res, next) => {
+        let deleteRequest = req.body;
+        let noteId = deleteRequest.noteId;
+        console.log("I got noteId: " + noteId);
+        dbNoteFunctions.deleteNote(noteId, function (err, results) {
+            if(err) { res.send(500,"Server Error"); return;}
+            res.send(results);
+        });
+    });
+
     return router;
 };
