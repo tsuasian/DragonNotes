@@ -17,15 +17,22 @@ export default class LogReg extends Component {
     : this.setState({mode: 'register'})
   }
 
+  registered() {
+    this.setState({ mode: 'login' })
+  }
+
+
   render(){
     return(
       (this.state.mode=='register')
       ? <Register
           switchMode={this.switchMode.bind(this)}
+          done={() => this.registered()}
           // onRegister={this.onRegister}
         />
       : <Login
           switchMode={this.switchMode.bind(this)}
+          status={this.props.status}
           // onLogin={this.onLogin}
         />
     )

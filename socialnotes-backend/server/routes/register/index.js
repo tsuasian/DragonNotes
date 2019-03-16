@@ -15,6 +15,10 @@ module.exports = () => {
     console.log("register route hit!");
     let user = req.body;
     console.log("req body", user);
+    var size = Object.values(user)
+    for (var i=0; i<size.length; i++) {
+      if (size[i] == '') {res.send(300, "Please fill out all forms")}
+    }
     let fName = user.fName;
     let lName = user.lName;
     let email = user.email;

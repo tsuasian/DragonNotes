@@ -14,12 +14,8 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: "",
       password: "",
-      confPassword: "",
-      email: "",
-      fName: "",
-      lName: ""
+      email: ""
     }
   }
 
@@ -34,9 +30,17 @@ class Login extends Component {
   }
   //var self = this; -> reference self in function to refer to "this" state in whole scope, not fx scope
 
-  // backRegister = () => {
-  //   this.props.status(false)
-  // }
+  onLogin = () => {
+    axios.post("http://localhost:8080/login", {
+      email: this.state.email,
+      password: this.state.password
+    })
+    .then((resp) => {
+      console.log(resp)
+      if ( resp.status == '200' ) { this.props.status(true) }
+    })
+    .catch((err) => console.log(err))
+  }
 
   render() {
     return (
@@ -50,12 +54,12 @@ class Login extends Component {
             <div className="usernameText">
               <Person className="iconsyay"/>
               <TextField
-                onChange={this.onChange('username')}
-                value={this.state.username}
-                id="username"
+                onChange={this.onChange('email')}
+                value={this.state.email}
+                id="email"
                 margin="normal"
                 type="text"
-                placeholder="Username"/>
+                placeholder="Email"/>
             </div>
 
             <div className="usernameText">
@@ -69,7 +73,7 @@ class Login extends Component {
             </div>
               <Button
                 className="btnStyleCustom"
-                // onClick={this.onRegister}
+                onClick={this.onLogin}
                 >Login
               </Button>
               <Button

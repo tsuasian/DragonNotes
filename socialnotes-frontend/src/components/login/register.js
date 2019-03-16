@@ -41,7 +41,7 @@ class Register extends Component {
     })
     .then((data) => {
       console.log(data)
-      if (data.status == "200") { this.props.status(true) }
+      if (data.status == "200") { this.props.done() }
     })
     .catch((err) => console.log(err))
   }

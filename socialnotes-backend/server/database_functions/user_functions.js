@@ -32,6 +32,7 @@ exports.getUsersByLastName = (lastName, callback) => {
     });
 };
 
+//register user
 exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
     fName = (fName).toString();
     lName = (lName).toString();
@@ -49,6 +50,22 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
         });
     });
 };
+
+exports.loginUser = (email, password, callback) => {
+  let loginEmail = (email).toString()
+  let passHash = (password).toString()
+  const sql = `SELECT * FROM Users WHERE email = '${loginEmail}' AND passwordHash = '${passHash}';`
+
+  db.getConnection(function(err, connection) {
+      //callback if server error
+      if(err) { console.log(err); callback(true); return; }
+      connection.query(sql, function(err, results) {
+          connection.release();
+          if(err) { console.log(err); callback(true); return; }
+          callback(false, results);
+      });
+  });
+}
 
 // Check if email/password combination exists for login purposes
 exports.ExistUser = (email, passHash, callback) => {
