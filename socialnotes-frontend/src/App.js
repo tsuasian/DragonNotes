@@ -8,18 +8,23 @@ import './components/css/register.css'
 import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
 import PropTypes from "prop-types";
 import NoteArea from "./components/NoteArea/NoteArea";
+import HeaderBar from "./components/HeaderBar/HeaderBar";
+import theme from './theme/theme'; // Material UI theme that sets colors, fonts etc for project
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loggedIn: false,
-            data: []
+            data: [],
+            groups: []
         };
-        this.updateMe = this.updateMe.bind(this);
+        this.refreshList = this.refreshList.bind(this);
+        this.getGroups = this.getGroups.bind(this);
+
     }
 
-    updateMe() {
+    refreshList() {
         console.log('updating!!!!!!');
         this.updateList();
     }
@@ -27,6 +32,7 @@ export default class App extends Component {
     //Get notes for the logged in user
     componentDidMount() {
         this.updateList();
+        this.getGroups();
     }
 
     updateList() {
@@ -35,6 +41,14 @@ export default class App extends Component {
         ).then(
             data => data.json()
         ).then(data => this.setState({data}));
+    }
+
+    getGroups() {
+        fetch(
+            "http://localhost:8080/groups/user/1"
+        ).then(
+            groups => groups.json()
+        ).then(groups => this.setState({groups}));
     }
 
     loggedIn = (status) => {
@@ -52,12 +66,12 @@ export default class App extends Component {
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
-            <Fragment>
-
-                <NoteArea notes={this.state.data} updateHandler={this.updateMe}/>
-
-
-            </Fragment>
+            <div className="App">
+                <MuiThemeProvider theme={theme}>
+                <HeaderBar/>
+                <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"}/>
+                </MuiThemeProvider>
+            </div>
             // this.state.loggedIn ?
               // <Login />
               // : <Register status={this.loggedIn}/>

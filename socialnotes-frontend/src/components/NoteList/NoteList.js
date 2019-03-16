@@ -20,6 +20,9 @@ class NoteList extends React.Component {
 
     render() {
         const { notes } = this.props;
+        const { groups } = this.props;
+        const { updateHandler } = this.props;
+        const { userName } = this.props;
         return (
             <div>
                 {this.state.loading
@@ -32,7 +35,11 @@ class NoteList extends React.Component {
                                     noteText={note.entryText}
                                     postedBy={note.postedBy}
                                     timePosted={note.timePosted}
-                                    edited={this.state.open}/>
+                                    noteId={note.noteId}
+                                    edited={this.state.open}
+                                    updateHandler ={updateHandler}
+                                    groups={groups}
+                                    userName={userName}/>
                         )}
                     </div>
                 }
