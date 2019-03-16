@@ -14,9 +14,9 @@ class NoteList extends React.Component {
         loading: false
     };
 
-    componentDidMount() {
-      this.props.updateHandler()
-    }
+    // componentDidMount() {
+    //   (function() {this.props.updateHandler() })();
+    // }
 
     render() {
         const { notes } = this.props;
