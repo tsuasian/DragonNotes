@@ -35,6 +35,13 @@ exports.getGroupsByUser = (userId, callback) => {
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
+exports.getListUserInGroup = (groupId, callback) => {
+    //Select DISTINCT groupName FROM Sharegroups JOIN UsersGroups WHERE  userId = '1' ORDER BY Sharegroups.lastActive DESC;
+    // const sql = `Select DISTINCT groupName, Sharegroups.groupId FROM Sharegroups JOIN UsersGroups WHERE UsersGroups.userId = '${userId}';`;
+    const sql = `select Users.firstName, Users.lastName from UsersGroups JOIN Sharegroups on UsersGroups.groupId = Sharegroups.groupId JOIN Users on Users.userId = UsersGroups.userId WHERE Sharegroups.groupId = '${groupId}';`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
 
 
 

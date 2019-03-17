@@ -14,7 +14,6 @@ module.exports = () => {
         return resp.send(`This is the groups route`);
     });
 
-
     router.get('/:groupId', (req, resp, next) => {
         const gid = req.params.groupId;
 
@@ -29,6 +28,16 @@ module.exports = () => {
         const uid = req.params.userId;
 
         dbGroupFunctions.getGroupsByUser(uid, function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
+    });
+
+    // List all the users in a particular group
+     router.get('/user/list/:groupId', (req, resp, next) => {
+        const gid = req.params.groupId;
+
+        dbGroupFunctions.getListUserInGroup(gid, function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
             resp.send(results);
         });
