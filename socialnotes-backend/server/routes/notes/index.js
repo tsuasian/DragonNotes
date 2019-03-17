@@ -33,6 +33,8 @@ module.exports = () => {
         let post = req.body;
         let postText = post.postText;
         let userId = post.userId;
+
+        // Add note for userID
         dbNoteFunctions.addNote(userId, postText, function (err, results) {
             if(err) { res.send(500,"Server Error"); return;}
             res.send(results);

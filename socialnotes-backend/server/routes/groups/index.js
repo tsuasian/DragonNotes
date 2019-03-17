@@ -14,6 +14,7 @@ module.exports = () => {
         return resp.send(`This is the groups route`);
     });
 
+
     router.get('/:groupId', (req, resp, next) => {
         const gid = req.params.groupId;
 
