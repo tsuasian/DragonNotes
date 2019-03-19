@@ -1,4 +1,5 @@
 'use strict';
+const uuidv4 = require('uuid/v4');
 
 const express = require('express');
 const router = express.Router();
@@ -15,7 +16,7 @@ module.exports = () => {
     router.get('/:userId', (req, resp, next) => {
 
         const id = req.params.userId;
-        console.log(req.params.userId);
+        console.log("router.get(/:userId" + req.params.userId);
 
         dbNoteFunctions.getNotesByUser(id, function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
@@ -33,9 +34,11 @@ module.exports = () => {
         let post = req.body;
         let postText = post.postText;
         let userId = post.userId;
+        const noteId = uuidv4();
+        const datetime = new Date().toLocaleString();
 
         // Add note for userID
-        dbNoteFunctions.addNote(userId, postText, function (err, results) {
+        dbNoteFunctions.addNote(userId, postText, noteId, datetime,  function (err, results) {
             if(err) { res.send(500,"Server Error"); return;}
             res.send(results);
         });

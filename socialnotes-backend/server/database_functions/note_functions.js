@@ -1,6 +1,5 @@
 'use strict';
 
-const uuidv4 = require('uuid/v4');
 const dbFunctions = require("./db_functions.js");
 
 // CREATE TABLE Notes (
@@ -25,19 +24,22 @@ exports.getNotesByUser = (userId, callback) => {
 };
 
 // Add a new note
-exports.addNote = (userId, noteText, callback) => {
+exports.addNote = (userId, noteText, noteId, datetime, callback) => {
     noteText = dbFunctions.escapeString(noteText);
-    const noteId = uuidv4();
-    const datetime = new Date().toLocaleString();
 
     // Add note for userId
-    const sql = `INSERT INTO Notes VALUES ('${noteId}', '${noteText}', ${userId}, '${datetime}','${datetime}')`;
-    dbFunctions.makeSqlQuery(sql, callback);
+    const sql1 = `INSERT INTO Notes VALUES ('${noteId}', '${noteText}', ${userId}, '${datetime}','${datetime}');`;
+    const sql2 = `insert into NotesGroups values ('${noteId}', (select personalGroup from Users where userId = ${userId}), '${datetime}');`;
+    const sql = sql1 + sql2;
 
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+// Add a new note
+exports.addNoteToPersonalGroup = (userId, noteId, datetime, callback) => {
     //automatically share with personalGroup of user
     const sql2 = `insert into NotesGroups values ('${noteId}', (select personalGroup from Users where userId = ${userId}), '${datetime}')`;
     dbFunctions.makeSqlQuery(sql2, callback);
-
 };
 
 // Share note in group
