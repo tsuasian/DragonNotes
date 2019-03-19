@@ -172,10 +172,12 @@ class HeaderBar extends React.Component {
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                            <MenuIcon />
+                            {/*<MenuIcon />*/}
+                            <img alt={"drexel dragon"} style={{'height':'30px'}} src={require('./yellowdragon.png')} />
+                            {/*<img alt={"drexel dragon"} src={'./yellowdragon.png'}/>*/}
                         </IconButton>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            SocialNotes
+                            DragonNotes
                         </Typography>
                         {/*<Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"], marginLeft: '32%'}} className={'red'}>*/}
                             {/*{'TC'}*/}

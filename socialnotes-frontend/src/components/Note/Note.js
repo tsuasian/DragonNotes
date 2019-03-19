@@ -82,7 +82,7 @@ export class Note extends React.Component {
             <Card className={'noteCard'}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"]}} className={'red'}>
+                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["A400"]}} className={'red'}>
                             {userName.split(' ')[0].slice(0,1) + userName.split(' ')[1].slice(0,1) }
                         </Avatar>
                     }
