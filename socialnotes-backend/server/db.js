@@ -9,7 +9,8 @@ let pool = mysql.createPool({
     password: process.env.MYSQL_PASS,
     database: 'socialnotes',
     connectionLimit: 10,
-    supportBigNumbers: true
+    supportBigNumbers: true,
+    multipleStatements: true
 });
 
 module.exports = {
