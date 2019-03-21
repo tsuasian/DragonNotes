@@ -37,6 +37,7 @@ class Login extends Component {
     })
     .then((resp) => {
       console.log(resp)
+      this.props.user(resp.personalGroup)
       if ( resp.status == '200' ) { this.props.status(true) }
     })
     .catch((err) => console.log(err))
@@ -49,8 +50,8 @@ class Login extends Component {
           <CssBaseline />
         <div className="loginPageBody">
           <Paper className="loginPaper" elevation={1}>
-            <Face />
-            <h1> Social Notes </h1>
+            <img src='./DragonIcon_Blue_HEX.png' />
+            <h1> Dragon Notes </h1>
             <div className="usernameText">
               <Person className="iconsyay"/>
               <TextField

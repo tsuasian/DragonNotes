@@ -11,6 +11,7 @@ import NoteArea from "./components/NoteArea/NoteArea";
 import HeaderBar from "./components/HeaderBar/HeaderBar";
 import theme from './theme/theme'; // Material UI theme that sets colors, fonts etc for project
 
+//14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,8 @@ export default class App extends Component {
             loggedIn: false,
             data: [],
             groups: [],
-            currentGroup: '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
+            currentGroup: '',
+            currentUsername: ''
         };
         this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
@@ -35,12 +37,14 @@ export default class App extends Component {
         this.getGroups();
     }
 
+
+
     updateList(groupId) {
 
         // Default
-        if (groupId == null){
-            groupId = '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
-        }
+        // if (groupId == null){
+        //     groupId = '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
+        // }
 
         this.setState({currentGroup: groupId});
         console.log("the new group is" + groupId);
@@ -77,6 +81,17 @@ export default class App extends Component {
         }
     };
 
+    getUser = (username) => {
+      this.setState({
+        currentUsername: username,
+        currentGroup: username
+      })
+    }
+
+    getPersonalGroupID(userID) {
+
+    }
+
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
         return (
@@ -85,7 +100,7 @@ export default class App extends Component {
                 <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList}/>
                 { this.state.loggedIn
                   ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"} />
-                  : <LogReg status={this.loggedIn} />
+                  : <LogReg status={this.loggedIn} user={this.getUser} />
                 }
                 </MuiThemeProvider>
             </div>

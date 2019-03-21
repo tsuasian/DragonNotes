@@ -106,7 +106,7 @@ class HeaderBar extends React.Component {
         anchorEl: null,
         groupsAnchorEl: null,
         mobileMoreAnchorEl: null,
-        groupName: 'dog'
+        groupName: ''
     };
 
     componentWillReceiveProps(nextProps, prevState) {
@@ -118,6 +118,7 @@ class HeaderBar extends React.Component {
     getGroupNameById = (groupId) => {
         axios.get('http://localhost:8080/groups/group/' + groupId)
             .then((response) => {
+                console.log(response.data)
                 this.setState({groupName: response.data[0].groupName});
             })
             .catch((err) => {

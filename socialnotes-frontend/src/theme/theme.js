@@ -24,7 +24,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiButton: {
       root: {
-        background: '#f8bbd0',
+        background: '#ffc601',
         borderRadius: 3,
         border: 0,
         color: 'white',

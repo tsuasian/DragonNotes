@@ -8,6 +8,8 @@ DialogTitle,DialogContentText,DialogContent,DialogActions,ListItemText,Dialog,Ta
 TableHead,TableRow,Paper,Typography,IconButton,TextField,MuiThemeProvider} from '@material-ui/core';
 import '../css/register.css'
 import theme from '../../theme/theme.js'
+import dragon from './DragonIcon_Blue_HEX.png'
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 class Register extends Component {
   constructor(props) {
@@ -54,8 +56,8 @@ class Register extends Component {
           <CssBaseline />
         <div className="loginPageBody">
           <Paper className="loginPaper" elevation={1}>
-            <Face />
-            <h1> Welcome to Social Notes </h1>
+            <img src='./DragonIcon_Blue_HEX.png' />
+            <h1> Welcome to Dragon Notes </h1>
             <div className="usernameText">
               <Person className="iconsyay"/>
               <TextField

@@ -33,6 +33,7 @@ export default class LogReg extends Component {
       : <Login
           switchMode={this.switchMode.bind(this)}
           status={this.props.status}
+          user={this.props.user}
           // onLogin={this.onLogin}
         />
     )
