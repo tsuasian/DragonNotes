@@ -8,12 +8,19 @@ const dbFunctions = require("./db_functions.js");
 //     primary key (groupId)
 // );
 
-// Create a new group
+
 exports.getGroupById = (groupId, callback) => {
     //lastActive will be auto-updated
     const sql = `SELECT * FROM Sharegroups WHERE groupId = '${groupId}'`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
+
+// Get personal group by userID
+// exports.getPersonalGroupByUserId = (userId, callback) => {
+//     //lastActive will be auto-updated
+//     const sql = `SELECT * FROM Sharegroups WHERE groupId = '${groupId}'`;
+//     dbFunctions.makeSqlQuery(sql, callback);
+// };
 
 // Create a new group
 exports.createGroup = (groupId, callback) => {

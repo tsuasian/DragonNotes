@@ -1,6 +1,7 @@
 'use strict';
 const db = require('../db.js');
 const dbFunctions = require("./db_functions.js");
+const uuidv4 = require('uuid/v4');
 
 // Example functions
 exports.getUsersByFirstName = (firstName, callback) => {
@@ -38,7 +39,13 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
     lName = (lName).toString();
     uName = (uName).toString();
     email = (email).toString();
-    const sql = `INSERT INTO Users (passwordHash, firstName, lastName, userName, email) VALUES ('${passwordHash}', '${fName}', '${lName}', '${uName}', '${email}') ;`;
+    const personalGroupId = uuidv4();
+    const datetime = new Date().toLocaleString();
+
+    const sql1 = `INSERT INTO Users (passwordHash, firstName, lastName, userName, email, personalGroup) VALUES ('${passwordHash}', '${fName}', '${lName}', '${uName}', '${email}', '${personalGroupId}');`;
+    const sql2 = `INSERT INTO Sharegroups VALUES ('${personalGroupId}', '${uName}', '${datetime}');`;
+    const sql = sql1+sql2;
+    
     // get a connection from the pool
     db.getConnection(function(err, connection) {
         //callback if server error
