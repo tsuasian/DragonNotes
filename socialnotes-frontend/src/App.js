@@ -20,7 +20,7 @@ export default class App extends Component {
             data: [],
             groups: [],
             currentGroup: '',
-            currentUsername: ''
+            currentUserID: ''
         };
         this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
@@ -33,10 +33,13 @@ export default class App extends Component {
 
     //Get notes for the logged in user
     componentDidMount() {
-        this.updateList();
-        this.getGroups();
+      this.updateList();
+
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+      this.getGroups();
+    }
 
 
     updateList(groupId) {
@@ -61,9 +64,9 @@ export default class App extends Component {
 
     }
 
-    getGroups() {
+    getGroups = () => {
         fetch(
-            "http://localhost:8080/groups/user/1"
+            `http://localhost:8080/groups/user/${this.state.currentUserID}`
         ).then(
             groups => groups.json()
         ).then(groups => this.setState({groups}));
@@ -81,10 +84,10 @@ export default class App extends Component {
         }
     };
 
-    getUser = (username) => {
+    getUser = (personalGroup, userId) => {
       this.setState({
-        currentUsername: username,
-        currentGroup: username
+        currentGroup: personalGroup,
+        currentUserID: userId
       })
     }
 
