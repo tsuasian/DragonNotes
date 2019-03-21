@@ -26,14 +26,14 @@ class NoteArea extends React.Component {
         const { userName } = this.props;
         const { currentGroup } = this.props;
         const { currentUserId } = this.props;
-        console.log("current group", currentGroup)
-        console.log("current UserId", currentUserId)
-        console.log("current group props ", this.props.currentGroup)
-        console.log("current UserId props ", this.props.currentUserId)
+        // console.log("current group", currentGroup)
+        // console.log("current UserId", currentUserId)
+        // console.log("current group props ", this.props.currentGroup)
+        // console.log("current UserId props ", this.props.currentUserId)
         return (
             <Fragment>
                 <TextArea updateHandler={updateHandler} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}/>
-                <NoteList notes={notes} updateHandler={updateHandler} groups={groups} userName={userName}/>
+                <NoteList notes={notes} updateHandler={updateHandler} groups={groups} userName={userName} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}/>
             </Fragment>
         )
     }

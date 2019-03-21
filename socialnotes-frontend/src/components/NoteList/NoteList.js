@@ -48,7 +48,9 @@ class NoteList extends React.Component {
                                     edited={this.state.open}
                                     updateHandler ={updateHandler}
                                     groups={groups}
-                                    userName={note.firstName + " "  + note.lastName}/>
+                                    userName={note.firstName + " "  + note.lastName}
+                                    currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}
+                                />
                         )}
                     </div>
                 }

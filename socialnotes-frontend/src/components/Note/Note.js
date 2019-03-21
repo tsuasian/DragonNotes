@@ -22,9 +22,10 @@ export class Note extends React.Component {
         this.setState({ anchorEl: null });
     };
 
-    deleteNote = () => {
+    deleteNote = (groupId) => {
         const { noteId } = this.props;
         const { updateHandler } = this.props;
+        const { currentGroup } = this.props
 
         // We should really send a token to validate this deletion
         // e.g. const token = localStorage.getItem('sessionToken');
@@ -32,14 +33,14 @@ export class Note extends React.Component {
         axios.post(deleteEndpoint, {
             noteId: noteId,
         })
-            .then(function (response) {
-                console.log(response);
-                updateHandler(); // refresh the list
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
+        .then(function (response) {
+          console.log("delete response ", response);
+          console.log("curent group prop ", currentGroup)
+          updateHandler(groupId); // refresh the list
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
         this.handleMenuClose();
     };
 
@@ -76,10 +77,10 @@ export class Note extends React.Component {
                 onClose={this.handleMenuClose}
             >
                 <MenuItem onClick={this.handleMenuClose}>Edit</MenuItem>
-                <MenuItem onClick={this.deleteNote}>Delete</MenuItem>
+                <MenuItem onClick={() => this.deleteNote(this.props.currentGroup)}>Delete</MenuItem>
             </Menu>
         );
-        
+
         return (
             <Card className={'noteCard'}>
                 <CardHeader
