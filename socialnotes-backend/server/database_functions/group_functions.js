@@ -9,6 +9,13 @@ const dbFunctions = require("./db_functions.js");
 // );
 
 // Create a new group
+exports.getGroupById = (groupId, callback) => {
+    //lastActive will be auto-updated
+    const sql = `SELECT * FROM Sharegroups WHERE groupId = '${groupId}'`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+// Create a new group
 exports.createGroup = (groupId, callback) => {
     //lastActive will be auto-updated
     const sql = `INSERT INTO Sharegroups (groupId) VALUES ('${groupId}')`;

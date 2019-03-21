@@ -12,16 +12,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import blue from '@material-ui/core/colors/blue';
 import ShareIcon from '@material-ui/icons/Share';
+import GroupIcon from '@material-ui/icons/Group';
 import {IconButton} from "@material-ui/core";
 const axios = require('axios');
-
-// const emails = ['username@gmail.com', 'user02@gmail.com'];
-const styles = {
-    avatar: {
-        backgroundColor: blue[100],
-        color: blue[600],
-    },
-};
+const styles = require('../../theme/theme');
 
 class ShareDialog extends React.Component {
     handleClose = () => {
@@ -41,6 +35,7 @@ class ShareDialog extends React.Component {
                 console.log(error);
             });
         this.props.onClose(groupId);
+        this.props.updateHandler(groupId);
         console.log("gonna share note with groupId " + groupId + " and the note is " + this.props.noteId);
     };
 
@@ -49,6 +44,8 @@ class ShareDialog extends React.Component {
     render() {
         const { classes, noteId, onClose, selectedValue, ...other } = this.props;
 
+        const { updateHandler } = this.props;
+
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
                 <DialogTitle id="simple-dialog-title">Share this note with:</DialogTitle>
@@ -56,9 +53,9 @@ class ShareDialog extends React.Component {
                     <List>
                         {this.props.groups.map(group => (
                             <ListItem button onClick={() => this.shareNoteInGroup(group.groupId)} key={group.groupName}>
-                                <ListItemAvatar>
+                                <ListItemAvatar style={{backgroundColor: '#ffc601'}}>
                                     <Avatar className={classes.avatar}>
-                                        <PersonIcon />
+                                        <GroupIcon />
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText primary={group.groupName} />
@@ -105,6 +102,8 @@ class ShareModal extends React.Component {
     };
 
     render() {
+        const { updateHandler } = this.props;
+
         return (
             <div>
                 {/*<Typography variant="subtitle1">Selected: {this.state.selectedValue}</Typography>*/}
@@ -121,6 +120,7 @@ class ShareModal extends React.Component {
                     onClose={this.handleClose}
                     groups={this.props.groups}
                     noteId={this.props.noteId}
+                    updateHandler={updateHandler}
                 />
             </div>
         );
