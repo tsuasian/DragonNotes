@@ -1,0 +1,13 @@
+.avatars-initials {
+  display: flex;
+  justify-content: center;
+  border: 2px solid red;
+  align-self: center;
+  flex-grow: 1
+}
+
+/* .app-bar {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr)
+} */
