@@ -17,16 +17,16 @@ export default class App extends Component {
         this.state = {
             loggedIn: false,
             data: [],
-            groups: []
+            groups: [],
+            currentGroup: '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
         };
         this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
-
     }
 
-    refreshList() {
+    refreshList(groupId) {
         console.log('updating!!!!!!');
-        this.updateList();
+        this.updateList(groupId);
     }
 
     //Get notes for the logged in user
@@ -35,12 +35,26 @@ export default class App extends Component {
         this.getGroups();
     }
 
-    updateList() {
+    updateList(groupId) {
+
+        // Default
+        if (groupId == null){
+            groupId = '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
+        }
+
+        this.setState({currentGroup: groupId});
+        console.log("the new group is" + groupId);
+
+        console.log("group: " + groupId);
+
         fetch(
-            "http://localhost:8080/notes/1"
+            "http://localhost:8080/groups/" + groupId
         ).then(
             data => data.json()
-        ).then(data => this.setState({data}));
+        ).then(
+            data => this.setState({data})
+        );
+
     }
 
     getGroups() {
@@ -68,7 +82,7 @@ export default class App extends Component {
         return (
             <div className="App">
                 <MuiThemeProvider theme={theme}>
-                <HeaderBar/>
+                <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList}/>
                 { this.state.loggedIn
                   ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"} />
                   : <LogReg status={this.loggedIn} />

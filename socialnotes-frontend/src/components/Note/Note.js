@@ -64,6 +64,8 @@ export class Note extends React.Component {
         const { userName} = this.props;
         // const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
+        const { updateHandler } = this.props;
+
 
         const renderMenu = (
             <Menu
@@ -108,7 +110,7 @@ export class Note extends React.Component {
                     {/*<IconButton aria-label="Share">*/}
                     {/*<ShareIcon />*/}
                     {/*</IconButton>*/}
-                    <ShareModal groups={groups} noteId={noteId}/>
+                    <ShareModal groups={groups} noteId={noteId} updateHandler={updateHandler}/>
 
                 </CardActions>
                 {renderMenu}
