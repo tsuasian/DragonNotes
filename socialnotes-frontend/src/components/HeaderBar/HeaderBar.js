@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component }  from 'react';
+import '../css/header.css'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,6 +27,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import PersonIcon from '@material-ui/icons/Person';
 const mainStyles = require('../../theme/theme');
+
 
 const styles = theme => ({
     root: {
@@ -101,7 +103,7 @@ const styles = theme => ({
 });
 
 //https://material-ui.com/demos/app-bar/
-class HeaderBar extends React.Component {
+class HeaderBar extends Component {
     state = {
         anchorEl: null,
         groupsAnchorEl: null,
@@ -241,6 +243,7 @@ class HeaderBar extends React.Component {
 
         return (
             <div className={classes.root}>
+              <div className="app-bar">
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -249,9 +252,14 @@ class HeaderBar extends React.Component {
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                             DragonNotes {this.state.groupName}
                         </Typography>
-                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"], marginLeft: '32%'}} className={'red'}>
-                            {'TC'}
-                        </Avatar>
+                        <div className="avatars-initials">
+                          {this.props.usersInGroup.map (
+                            (name, i) =>
+                              <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["A400"]}} className={'red'}>
+                                  {name.firstName.substring(0, 1) + name.lastName.substring(0, 1)}
+                              </Avatar>
+                          )}
+                        </div>
 
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
@@ -281,6 +289,7 @@ class HeaderBar extends React.Component {
                         </div>
                     </Toolbar>
                 </AppBar>
+              </div>
                 {renderMenu}
                 {renderGroupsMenu}
                 {renderMobileMenu}
