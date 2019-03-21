@@ -22,7 +22,9 @@ class ShareDialog extends React.Component {
         this.props.onClose(this.props.selectedValue);
     };
 
+
     shareNoteInGroup = groupId => {
+        const updateHandler = (gid) => { this.props.updateHandler(groupId) }
         const shareEndpoint = `http://localhost:8080/groups/notes/`;
         axios.post(shareEndpoint, {
             noteId: this.props.noteId,
@@ -30,12 +32,13 @@ class ShareDialog extends React.Component {
         })
             .then(function (response) {
                 console.log(response);
+                updateHandler(groupId)
             })
             .catch(function (error) {
                 console.log(error);
             });
         this.props.onClose(groupId);
-        this.props.updateHandler(groupId);
+
         console.log("gonna share note with groupId " + groupId + " and the note is " + this.props.noteId);
     };
 
