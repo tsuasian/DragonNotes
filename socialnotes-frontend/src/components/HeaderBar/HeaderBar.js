@@ -20,6 +20,12 @@ import GroupIcon from '@material-ui/icons/Group';
 import CreateIcon from '@material-ui/icons/Create';
 import {Avatar} from "@material-ui/core";
 import theme from "../../theme/theme";
+import axios from 'axios'
+import ListItem from "../ShareDialog/ShareDialog";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import PersonIcon from '@material-ui/icons/Person';
+const mainStyles = require('../../theme/theme');
 
 const styles = theme => ({
     root: {
@@ -89,21 +95,65 @@ const styles = theme => ({
             display: 'none',
         },
     },
+    groupAvatar: {
+        backgroundColor: 'red'
+    }
 });
 
 //https://material-ui.com/demos/app-bar/
 class HeaderBar extends React.Component {
     state = {
         anchorEl: null,
+        groupsAnchorEl: null,
         mobileMoreAnchorEl: null,
+        groupName: 'dog'
     };
+
+    componentWillReceiveProps(nextProps, prevState) {
+        // Update the group name at the top of the page based on the id passed in props
+        this.getGroupNameById(this.props.currentGroup);
+    }
+
+    // Get group name to be displayed at the top of the page
+    getGroupNameById = (groupId) => {
+        axios.get('http://localhost:8080/groups/group/' + groupId)
+            .then((response) => {
+                this.setState({groupName: response.data[0].groupName});
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    };
+
+    // Get group name to be displayed at the top of the page
+    getGroupMembersByGroupId = (groupId) => {
+        axios.get('http://localhost:8080/groups/' + groupId + '/users')
+            .then((response) => {
+                // this.setState({groupName: response.data[0].groupName});
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    };
+
+
+
 
     handleProfileMenuOpen = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
 
+    handleGroupsMenuOpen = event => {
+        this.setState({ groupsAnchorEl: event.currentTarget });
+    };
+
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
+        this.handleMobileMenuClose();
+    };
+
+    handleGroupsMenuClose = () => {
+        this.setState({ groupsAnchorEl: null });
         this.handleMobileMenuClose();
     };
 
@@ -116,9 +166,10 @@ class HeaderBar extends React.Component {
     };
 
     render() {
-        const { anchorEl, mobileMoreAnchorEl } = this.state;
+        const { anchorEl, groupsAnchorEl, mobileMoreAnchorEl } = this.state;
         const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
+        const isGroupsMenuOpen = Boolean(groupsAnchorEl);
         const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
         const renderMenu = (
@@ -129,8 +180,28 @@ class HeaderBar extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
+
                 <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+            </Menu>
+        );
+
+        const renderGroupsMenu = (
+            <Menu
+                anchorEl={groupsAnchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isGroupsMenuOpen}
+                onClose={this.handleGroupsMenuClose}
+            >
+                {this.props.groups.map(group => (
+                    <MenuItem button onClick={() => this.props.updateHandler(group.groupId)} key={group.groupName}>
+                            <Avatar className={'groupAvatar'} style={{marginRight: '15px', backgroundColor: '#ffc601'}}>
+                                <GroupIcon />
+                            </Avatar>
+                        {group.groupName}
+                    </MenuItem>
+                ))}
             </Menu>
         );
 
@@ -172,35 +243,25 @@ class HeaderBar extends React.Component {
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                            <MenuIcon />
+                            <img alt={"Drexel dragon"} style={{'height':'30px'}} src={require('./yellowdragon.png')} />
                         </IconButton>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            SocialNotes
+                            DragonNotes {this.state.groupName}
                         </Typography>
-                        {/*<Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"], marginLeft: '32%'}} className={'red'}>*/}
-                            {/*{'TC'}*/}
-                        {/*</Avatar>*/}
-                        {/*<div className={classes.search}>*/}
-                            {/*<div className={classes.searchIcon}>*/}
-                                {/*<SearchIcon />*/}
-                            {/*</div>*/}
-                            {/*<InputBase*/}
-                                {/*placeholder="Search…"*/}
-                                {/*classes={{*/}
-                                    {/*root: classes.inputRoot,*/}
-                                    {/*input: classes.inputInput,*/}
-                                {/*}}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
+                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"], marginLeft: '32%'}} className={'red'}>
+                            {'TC'}
+                        </Avatar>
+
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton color="inherit">
                                 <CreateIcon/>
                             </IconButton>
-                            <IconButton color="inherit">
-                                {/*<Badge badgeContent={17} color="secondary">*/}
-                                    {/*<NotificationsIcon />*/}
-                                {/*</Badge>*/}
+                            <IconButton
+                                aria-owns={isGroupsMenuOpen ? 'material-appbar' : undefined}
+                                aria-haspopup="true"
+                                onClick={this.handleGroupsMenuOpen}
+                                color="inherit">
                                 <GroupIcon/>
                             </IconButton>
                             <IconButton
@@ -220,6 +281,7 @@ class HeaderBar extends React.Component {
                     </Toolbar>
                 </AppBar>
                 {renderMenu}
+                {renderGroupsMenu}
                 {renderMobileMenu}
             </div>
         );

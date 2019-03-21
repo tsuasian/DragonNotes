@@ -64,6 +64,8 @@ export class Note extends React.Component {
         const { userName} = this.props;
         // const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
+        const { updateHandler } = this.props;
+
 
         const renderMenu = (
             <Menu
@@ -82,7 +84,7 @@ export class Note extends React.Component {
             <Card className={'noteCard'}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["500"]}} className={'red'}>
+                        <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["A400"]}} className={'red'}>
                             {userName.split(' ')[0].slice(0,1) + userName.split(' ')[1].slice(0,1) }
                         </Avatar>
                     }
@@ -108,7 +110,7 @@ export class Note extends React.Component {
                     {/*<IconButton aria-label="Share">*/}
                     {/*<ShareIcon />*/}
                     {/*</IconButton>*/}
-                    <ShareModal groups={groups} noteId={noteId}/>
+                    <ShareModal groups={groups} noteId={noteId} updateHandler={updateHandler}/>
 
                 </CardActions>
                 {renderMenu}

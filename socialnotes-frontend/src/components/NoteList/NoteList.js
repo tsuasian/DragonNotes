@@ -4,15 +4,27 @@ import { Note } from '../Note/Note'
 
 class NoteList extends React.Component {
 
-    static defaultProps = {
-        notes: [
-            {"noteText": "You have no notes! Add one above.", "postedBy": "-", "datePosted": '2019-02-23 14:00:00', "edited": false}
-        ]
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            notes: []
+        };
+        this.getNotesInGroup = this.getNotesInGroup.bind(this);
+    }
 
     state = {
         loading: false
+
     };
+
+    getNotesInGroup(groupId) {
+        fetch(
+            "http://localhost:8080/groups/" + groupId
+        ).then(
+            notes => notes.json()
+        ).then(notes => this.setState({notes}));
+    }
 
     // componentDidMount() {
     //   (function() {this.props.updateHandler() })();

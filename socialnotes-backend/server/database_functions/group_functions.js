@@ -9,6 +9,13 @@ const dbFunctions = require("./db_functions.js");
 // );
 
 // Create a new group
+exports.getGroupById = (groupId, callback) => {
+    //lastActive will be auto-updated
+    const sql = `SELECT * FROM Sharegroups WHERE groupId = '${groupId}'`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+// Create a new group
 exports.createGroup = (groupId, callback) => {
     //lastActive will be auto-updated
     const sql = `INSERT INTO Sharegroups (groupId) VALUES ('${groupId}')`;
@@ -32,6 +39,13 @@ exports.getGroupsByUser = (userId, callback) => {
 	//Select DISTINCT groupName FROM Sharegroups JOIN UsersGroups WHERE  userId = '1' ORDER BY Sharegroups.lastActive DESC;
 	// const sql = `Select DISTINCT groupName, Sharegroups.groupId FROM Sharegroups JOIN UsersGroups WHERE UsersGroups.userId = '${userId}';`;
     const sql = `select UsersGroups.groupId, Sharegroups.groupName from UsersGroups JOIN Sharegroups on UsersGroups.groupId = Sharegroups.groupId WHERE userId = '${userId}';`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
+exports.getListUserInGroup = (groupId, callback) => {
+    //Select DISTINCT groupName FROM Sharegroups JOIN UsersGroups WHERE  userId = '1' ORDER BY Sharegroups.lastActive DESC;
+    // const sql = `Select DISTINCT groupName, Sharegroups.groupId FROM Sharegroups JOIN UsersGroups WHERE UsersGroups.userId = '${userId}';`;
+    const sql = `select Users.firstName, Users.lastName from UsersGroups JOIN Sharegroups on UsersGroups.groupId = Sharegroups.groupId JOIN Users on Users.userId = UsersGroups.userId WHERE Sharegroups.groupId = '${groupId}';`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
 

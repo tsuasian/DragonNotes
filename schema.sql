@@ -10,8 +10,11 @@ firstName VARCHAR(40) NOT NULL,
 lastName VARCHAR(40),
 userName VARCHAR(40),
 email VARCHAR(80) UNIQUE NOT NULL,
+personalGroup VARCHAR(64) REFERENCES Sharegroups(groupId),
 primary key (userId)
 );
+
+--alter table Users add PersonalGroup varchar(64) references Sharegroups(groupId);
 
 INSERT INTO Users VALUES (1,'14E4F66C63DEC110B448E011DCB0B57F70EC20C6', 'Tim', 'Chang', 'tsuasian', 'Tchang2017@gmail.com');
 INSERT INTO Users VALUES (2, '70846DDC6D46C1D278CBE179D44836E13411D5C0', 'Dan', 'Pena', 'theBetterDaniel', 'daniel.r.pena25@gmail.com');
@@ -80,6 +83,11 @@ primary key (groupId)
 
 INSERT INTO Sharegroups VALUES ('94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28', 'CS275', '2019-02-23 14:11:09');
 
+--Everyone automatically assigned to a group with only them as a member
+INSERT INTO Sharegroups VALUES ('14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21', 'tsuasian', '2019-02-23 14:11:09');
+INSERT INTO Sharegroups VALUES ('24a7f8ce-6fc2-4be1-8fed-dafa6c41cb22', 'theBetterDaniel', '2019-02-23 14:11:09');
+INSERT INTO Sharegroups VALUES ('34a7f8ce-6fc2-4be1-8fed-dafa6c41cb23', 'danK', '2019-02-23 14:11:09');
+
 -- Which items have which tags
 --These records are deleted if either the note or the tag is deleted.
 DROP TABLE IF EXISTS NotesTags;
@@ -103,6 +111,11 @@ CREATE TABLE UsersGroups (
 INSERT INTO UsersGroups VALUES (1, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
 INSERT INTO UsersGroups VALUES (2, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
 INSERT INTO UsersGroups VALUES (3, '94a7f8ce-6fc2-4be1-8fed-dafa6c41cb28');
+
+--Everyone automatically assigned to a group with only them as a member
+INSERT INTO UsersGroups VALUES (1, '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21');
+INSERT INTO UsersGroups VALUES (2, '24a7f8ce-6fc2-4be1-8fed-dafa6c41cb22');
+INSERT INTO UsersGroups VALUES (3, '34a7f8ce-6fc2-4be1-8fed-dafa6c41cb23');
 
 -- Which notes are shared in which groups.
 -- These records are deleted if either the group or the note is deleted.

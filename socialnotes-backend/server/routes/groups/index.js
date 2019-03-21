@@ -14,10 +14,21 @@ module.exports = () => {
         return resp.send(`This is the groups route`);
     });
 
+    // Get all notes in group
     router.get('/:groupId', (req, resp, next) => {
         const gid = req.params.groupId;
 
         dbNoteFunctions.getNotesInGroup(gid, function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
+    });
+
+    // Get details of a particular group
+    router.get('/group/:groupId', (req, resp, next) => {
+        const gid = req.params.groupId;
+
+        dbGroupFunctions.getGroupById(gid, function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
             resp.send(results);
         });
@@ -28,6 +39,16 @@ module.exports = () => {
         const uid = req.params.userId;
 
         dbGroupFunctions.getGroupsByUser(uid, function (err, results) {
+            if(err) { resp.send(500,"Server Error"); return;}
+            resp.send(results);
+        });
+    });
+
+    // List all the users in a particular group
+     router.get('/:groupId/users', (req, resp, next) => {
+        const gid = req.params.groupId;
+
+        dbGroupFunctions.getListUserInGroup(gid, function (err, results) {
             if(err) { resp.send(500,"Server Error"); return;}
             resp.send(results);
         });

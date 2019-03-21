@@ -18,8 +18,8 @@ const theme = createMuiTheme({
   // },
 
     palette: {
-        primary: blue,
-            secondary: pink,
+      primary: {500: '#07284D'},
+      secondary: {'A400': '#ffc601'},
     },
   overrides: {
     MuiButton: {
