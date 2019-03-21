@@ -49,13 +49,17 @@ class TextArea extends React.Component {
         // Prevent default form submission behaviour, which goes to a new page
         // https://reactjs.org/docs/forms.html
         event.preventDefault();
+        // let usersId = this.props.currentUserId.toString()
+
+        console.log("current user Id in handle submit Plus button ", this.props.currentUserId)
+        console.log("currentGroup ", this.props.currentGroup)
 
         axios.post("http://localhost:8080/notes", {
             postText: this.state.inputBoxText,
-            userId: '1'
+            userId: this.props.currentUserId
         }).then((data) => {
                 console.log(data)
-                this.state.updateHandler()
+                this.props.updateHandler(this.props.currentGroup)
                 this.setState({ inputBoxText: '' })
             })
             .catch((err) => console.log(err))

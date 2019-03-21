@@ -31,29 +31,18 @@ export default class App extends Component {
         this.updateList(groupId);
     }
 
-    //Get notes for the logged in user
-    componentDidMount() {
-      this.updateList();
-
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-      this.getGroups();
-    }
-
-
     updateList(groupId) {
-
         // Default
         // if (groupId == null){
         //     groupId = '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21'
         // }
+        console.log("currentGroup", this.state.currentGroup)
 
         this.setState({currentGroup: groupId});
+
         console.log("the new group is" + groupId);
-
         console.log("group: " + groupId);
-
+        //fetches notes for that group id
         fetch(
             "http://localhost:8080/groups/" + groupId
         ).then(
@@ -63,6 +52,18 @@ export default class App extends Component {
         );
 
     }
+
+    //Get notes for the logged in user
+    // componentDidMount() {
+    //
+    //
+    // }
+    //
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //   this.updateList(this.state.currentGroup)
+    //   this.getGroups();
+    // }
+
 
     getGroups = () => {
         fetch(
@@ -84,16 +85,23 @@ export default class App extends Component {
         }
     };
 
+    //Get user
     getUser = (personalGroup, userId) => {
+      console.log("user id", userId)
       this.setState({
         currentGroup: personalGroup,
         currentUserID: userId
       })
+      if (this.state.currentGroup) {
+        this.updateList(personalGroup);
+        this.getGroups();
+      }
+
     }
 
-    getPersonalGroupID(userID) {
-
-    }
+    // getPersonalGroupID(userID) {
+    //
+    // }
 
     // to see the notelist, add <NoteList notes={this.state.data}/> in here somewhere
     render() {
@@ -102,7 +110,7 @@ export default class App extends Component {
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList}/>
                 { this.state.loggedIn
-                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"} />
+                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID}/>
                   : <LogReg status={this.loggedIn} user={this.getUser} />
                 }
                 </MuiThemeProvider>
