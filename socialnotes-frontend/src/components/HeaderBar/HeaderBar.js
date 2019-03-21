@@ -249,13 +249,13 @@ class HeaderBar extends Component {
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
                             <img alt={"Drexel dragon"} style={{'height':'30px'}} src={require('./yellowdragon.png')} />
                         </IconButton>
-                        <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                        <Typography className="dragon-group" variant="h6" color="inherit" noWrap>
                             DragonNotes {this.state.groupName}
                         </Typography>
                         <div className="avatars-initials">
                           {this.props.usersInGroup.map (
                             (name, i) =>
-                              <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["A400"]}} className={'red'}>
+                              <Avatar aria-label="Note" style={{backgroundColor: theme.palette.secondary["A400"], marginLeft:"10px"}} className={'red'}>
                                   {name.firstName.substring(0, 1) + name.lastName.substring(0, 1)}
                               </Avatar>
                           )}

@@ -1,9 +1,9 @@
 .avatars-initials {
   display: flex;
   justify-content: center;
-  border: 2px solid red;
   align-self: center;
-  flex-grow: 1
+  margin-left: 5px;
+  flex-grow: 6
 }
 
 /* .app-bar {
@@ -11,3 +11,7 @@
   width: 100%;
   grid-template-columns: repeat(4, 1fr)
 } */
+
+.dragon-group {
+  margin-left: 20px;
+}
