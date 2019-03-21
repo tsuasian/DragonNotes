@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Note } from '../Note/Note'
+import axios from 'axios'
 
 class NoteList extends React.Component {
 
@@ -8,7 +9,7 @@ class NoteList extends React.Component {
         super(props);
         this.state = {
             loading: false,
-            notes: []
+            notes: [],
         };
         this.getNotesInGroup = this.getNotesInGroup.bind(this);
     }
@@ -25,10 +26,6 @@ class NoteList extends React.Component {
             notes => notes.json()
         ).then(notes => this.setState({notes}));
     }
-
-    // componentDidMount() {
-    //   (function() {this.props.updateHandler() })();
-    // }
 
     render() {
         const { notes } = this.props;
@@ -51,7 +48,7 @@ class NoteList extends React.Component {
                                     edited={this.state.open}
                                     updateHandler ={updateHandler}
                                     groups={groups}
-                                    userName={userName}/>
+                                    userName={note.firstName + " "  + note.lastName}/>
                         )}
                     </div>
                 }

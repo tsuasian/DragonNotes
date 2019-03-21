@@ -20,7 +20,8 @@ export default class App extends Component {
             data: [],
             groups: [],
             currentGroup: '',
-            currentUserID: ''
+            currentUserID: '',
+            username: ''
         };
         this.refreshList = this.refreshList.bind(this);
         this.getGroups = this.getGroups.bind(this);
@@ -48,7 +49,14 @@ export default class App extends Component {
         ).then(
             data => data.json()
         ).then(
-            data => this.setState({data})
+            data => {
+              console.log("data in app (notes) ", data)
+              //store all notes in array
+              //look at each note, find userId (postedBy)
+              //update userId with user name accordinglly
+              //set the state 
+              this.setState({data})
+            }
         );
 
     }
@@ -86,11 +94,12 @@ export default class App extends Component {
     };
 
     //Get user
-    getUser = (personalGroup, userId) => {
+    getUser = (personalGroup, userId, username) => {
       console.log("user id", userId)
       this.setState({
         currentGroup: personalGroup,
-        currentUserID: userId
+        currentUserID: userId,
+        username: username
       })
       if (this.state.currentGroup) {
         this.updateList(personalGroup);
@@ -110,7 +119,7 @@ export default class App extends Component {
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList}/>
                 { this.state.loggedIn
-                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={"Tim Chang"} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID}/>
+                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={this.state.username} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID}/>
                   : <LogReg status={this.loggedIn} user={this.getUser} />
                 }
                 </MuiThemeProvider>

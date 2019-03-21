@@ -79,7 +79,7 @@ export class Note extends React.Component {
                 <MenuItem onClick={this.deleteNote}>Delete</MenuItem>
             </Menu>
         );
-
+        
         return (
             <Card className={'noteCard'}>
                 <CardHeader

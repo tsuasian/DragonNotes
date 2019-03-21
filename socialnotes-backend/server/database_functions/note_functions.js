@@ -14,7 +14,7 @@ const dbFunctions = require("./db_functions.js");
 // Get all notes in a given group
 exports.getNotesInGroup = (groupId, callback) => {
 
-    const sql = "select * from Notes join NotesGroups on Notes.noteId LIKE NotesGroups.noteId where NotesGroups.groupId LIKE \'" + groupId + "\' ORDER BY timePosted DESC;";
+    const sql = `select Notes.noteId as noteId, Notes.entryText as entryText, Notes.timePosted as timePosted, Notes.timeModified as timeModified, Users.firstName as firstName, Users.lastName from Notes join NotesGroups on Notes.noteId LIKE NotesGroups.noteId join Users on Notes.postedBy = Users.userId where NotesGroups.groupId LIKE '${groupId}' ORDER BY timePosted DESC;`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
@@ -62,4 +62,3 @@ exports.deleteNote = (noteId, callback) => {
     let sql = `DELETE FROM Notes WHERE noteId LIKE '${noteId}';`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
-

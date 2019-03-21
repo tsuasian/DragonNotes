@@ -37,8 +37,9 @@ class Login extends Component {
     })
     .then((resp) => {
       console.log(resp)
+      let userFullName = `${resp.data[0].firstName} ${resp.data[0].lastName}`
       // console.log("personal id", resp[0].personalGroup)
-      this.props.user(resp.data[0].personalGroup, resp.data[0].userId)
+      this.props.user(resp.data[0].personalGroup, resp.data[0].userId, userFullName)
       if ( resp.status == '200' ) { this.props.status(true) }
     })
     .catch((err) => console.log(err))
