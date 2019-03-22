@@ -44,6 +44,24 @@ class Register extends Component {
     .then((data) => {
       console.log(data)
       if (data.status == "200") { this.props.done() }
+      axios.post("http://localhost:8080/login", {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then((resp) => {
+        console.log(resp)
+        let userId = resp.data[0].userId
+        let personalGroup = resp.data[0].personalGroup
+
+        axios.post("http://localhost:8080/groups/users", {
+          userId: userId,
+          groupId: personalGroup
+        })
+        .then((resp) => {console.log(resp)})
+        .catch(err => console.log(err))
+
+      })
+      .catch((err) => console.log(err))
     })
     .catch((err) => console.log(err))
   }

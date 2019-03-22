@@ -45,7 +45,7 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
     const sql1 = `INSERT INTO Users (passwordHash, firstName, lastName, userName, email, personalGroup) VALUES ('${passwordHash}', '${fName}', '${lName}', '${uName}', '${email}', '${personalGroupId}');`;
     const sql2 = `INSERT INTO Sharegroups VALUES ('${personalGroupId}', '${uName}', '${datetime}');`;
     const sql = sql1+sql2;
-    
+
     // get a connection from the pool
     db.getConnection(function(err, connection) {
         //callback if server error
@@ -57,6 +57,7 @@ exports.registerUser = (passwordHash, fName, lName, uName, email, callback) => {
         });
     });
 };
+
 
 exports.loginUser = (email, password, callback) => {
   let loginEmail = (email).toString()

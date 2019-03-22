@@ -25,6 +25,7 @@ export class Note extends React.Component {
     deleteNote = (groupId) => {
         const { noteId } = this.props;
         const { updateHandler } = this.props;
+        const { getGroups } = this.props;
         const { currentGroup } = this.props
 
         // We should really send a token to validate this deletion
@@ -67,7 +68,9 @@ export class Note extends React.Component {
         const isMenuOpen = Boolean(anchorEl);
         const { updateHandler } = this.props;
 
-
+        const {currentUserId} = this.props
+        console.log("current user Id in notejs ", currentUserId)
+        console.log("props user id in note js ", this.props.currentUserId)
         const renderMenu = (
             <Menu
                 anchorEl={anchorEl}
@@ -111,7 +114,7 @@ export class Note extends React.Component {
                     {/*<IconButton aria-label="Share">*/}
                     {/*<ShareIcon />*/}
                     {/*</IconButton>*/}
-                    <ShareModal groups={groups} noteId={noteId} updateHandler={updateHandler}/>
+                    <ShareModal groups={groups} noteId={noteId} updateHandler={updateHandler} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}  getGroups={this.props.getGroups}/>
 
                 </CardActions>
                 {renderMenu}

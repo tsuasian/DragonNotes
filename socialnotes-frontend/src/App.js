@@ -56,11 +56,9 @@ export default class App extends Component {
     }
 
     getGroups = () => {
-        fetch(
-            `http://localhost:8080/groups/user/${this.state.currentUserID}`
-        ).then(
-            groups => groups.json()
-        ).then(groups => this.setState({groups}));
+        fetch(`http://localhost:8080/groups`)
+        .then(groups => groups.json())
+        .then(groups => this.setState({groups}));
     }
 
     loggedIn = (status) => {
@@ -101,7 +99,7 @@ export default class App extends Component {
                 <MuiThemeProvider theme={theme}>
                 <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList} usersInGroup={this.state.usersInGroup}/>
                 { this.state.loggedIn
-                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={this.state.username} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID}/>
+                  ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={this.state.username} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID} getGroups={this.getGroups}/>
                   : <LogReg status={this.loggedIn} user={this.getUser} />
                 }
                 </MuiThemeProvider>

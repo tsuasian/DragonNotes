@@ -15,6 +15,12 @@ exports.getGroupById = (groupId, callback) => {
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
+exports.getAllGroups = (callback) => {
+    //lastActive will be auto-updated
+    const sql = `SELECT * FROM Sharegroups`;
+    dbFunctions.makeSqlQuery(sql, callback);
+};
+
 // Get personal group by userID
 // exports.getPersonalGroupByUserId = (userId, callback) => {
 //     //lastActive will be auto-updated
@@ -23,9 +29,16 @@ exports.getGroupById = (groupId, callback) => {
 // };
 
 // Create a new group
-exports.createGroup = (groupId, callback) => {
+exports.createGroup = (groupId, groupName, userId, callback) => {
+
+  console.log("in the db dunctions this fucking user id is " + userId);
     //lastActive will be auto-updated
-    const sql = `INSERT INTO Sharegroups (groupId) VALUES ('${groupId}')`;
+    const sql1 = `INSERT INTO Sharegroups (groupId, groupName) VALUES ('${groupId}', '${groupName}');`;
+    const sql2 = `INSERT INTO UsersGroups VALUES (${userId}, '${groupId}');`;
+    const sql = sql1+sql2;
+
+
+
     dbFunctions.makeSqlQuery(sql, callback);
 };
 
@@ -55,7 +68,3 @@ exports.getListUserInGroup = (groupId, callback) => {
     const sql = `select Users.firstName, Users.lastName from UsersGroups JOIN Sharegroups on UsersGroups.groupId = Sharegroups.groupId JOIN Users on Users.userId = UsersGroups.userId WHERE Sharegroups.groupId = '${groupId}';`;
     dbFunctions.makeSqlQuery(sql, callback);
 };
-
-
-
-

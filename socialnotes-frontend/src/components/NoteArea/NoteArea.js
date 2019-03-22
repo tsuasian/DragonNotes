@@ -33,7 +33,7 @@ class NoteArea extends React.Component {
         return (
             <Fragment>
                 <TextArea updateHandler={updateHandler} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}/>
-                <NoteList notes={notes} updateHandler={updateHandler} groups={groups} userName={userName} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}/>
+                <NoteList notes={notes} updateHandler={updateHandler} groups={groups} userName={userName} currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId} getGroups={this.props.getGroups}/>
             </Fragment>
         )
     }

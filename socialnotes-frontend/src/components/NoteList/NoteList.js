@@ -49,7 +49,9 @@ class NoteList extends React.Component {
                                     updateHandler ={updateHandler}
                                     groups={groups}
                                     userName={note.firstName + " "  + note.lastName}
-                                    currentGroup = {this.props.currentGroup} currentUserId={this.props.currentUserId}
+                                    currentGroup = {this.props.currentGroup}
+                                    currentUserId={this.props.currentUserId}
+                                    getGroups={this.props.getGroups}
                                 />
                         )}
                     </div>
