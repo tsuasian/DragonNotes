@@ -97,7 +97,7 @@ export default class App extends Component {
         return (
             <div className="App">
                 <MuiThemeProvider theme={theme}>
-                <HeaderBar currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList} usersInGroup={this.state.usersInGroup}/>
+                <HeaderBar currentUserId={this.state.currentUserID} currentGroup = {this.state.currentGroup} groups={this.state.groups} updateHandler={this.refreshList} usersInGroup={this.state.usersInGroup}/>
                 { this.state.loggedIn
                   ? <NoteArea notes={this.state.data} updateHandler={this.refreshList} groups={this.state.groups} userName={this.state.username} currentGroup = {this.state.currentGroup} currentUserId={this.state.currentUserID} getGroups={this.getGroups}/>
                   : <LogReg status={this.loggedIn} user={this.getUser} />

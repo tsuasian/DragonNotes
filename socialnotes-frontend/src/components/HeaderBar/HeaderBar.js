@@ -139,7 +139,9 @@ class HeaderBar extends Component {
             })
     };
 
-
+    getPersonalGroupByUserId = (userId) => {
+      return '14a7f8ce-6fc2-4be1-8fed-dafa6c41cb21';
+    }
 
 
     handleProfileMenuOpen = event => {
@@ -169,11 +171,23 @@ class HeaderBar extends Component {
     };
 
     render() {
+      // <IconButton
+      //     aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+      //     aria-haspopup="true"
+      //     onClick={(currentUserId) => this.props.updateHandler(currentUserId)}
+      //     color="inherit"
+      // >
+      //     <AccountCircle />
+      // </IconButton>
+
+
+
         const { anchorEl, groupsAnchorEl, mobileMoreAnchorEl } = this.state;
         const { classes } = this.props;
         const isMenuOpen = Boolean(anchorEl);
         const isGroupsMenuOpen = Boolean(groupsAnchorEl);
         const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+        const currentUserId = this.props.currentUserId;
 
         const renderMenu = (
             <Menu
@@ -263,23 +277,12 @@ class HeaderBar extends Component {
 
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <CreateIcon/>
-                            </IconButton>
                             <IconButton
                                 aria-owns={isGroupsMenuOpen ? 'material-appbar' : undefined}
                                 aria-haspopup="true"
                                 onClick={this.handleGroupsMenuOpen}
                                 color="inherit">
                                 <GroupIcon/>
-                            </IconButton>
-                            <IconButton
-                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                                aria-haspopup="true"
-                                onClick={this.handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
                             </IconButton>
                         </div>
                         <div className={classes.sectionMobile}>

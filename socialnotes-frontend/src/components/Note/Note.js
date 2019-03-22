@@ -79,7 +79,6 @@ export class Note extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.handleMenuClose}>Edit</MenuItem>
                 <MenuItem onClick={() => this.deleteNote(this.props.currentGroup)}>Delete</MenuItem>
             </Menu>
         );
